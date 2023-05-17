@@ -1,6 +1,11 @@
 # Aplicación Web para calcular tradeo de cryptomonedas
 
-Programa hecho en python con el framework flask y JS App Web
+Programa hecho en python con el framework flask y JS App Web. Desarrollado por Pablo Márquez para el bootcamp de keepCoding.
+
+# Aviso importante
+
+Esta app es solo para visualizar datos y jugar con supuestas inversiones. En ningún caso se realizan compras, inversiones o tradeo real. Desaconsejamos invertir en cualquier tipo de cryptomoneda.
+
 
 # Instalación
 - crear un entorno en python y ejecutar el comando
@@ -14,7 +19,7 @@ la libreria utilizada en flask https://flask.palletsprojects.com/en/2.2.x/
 - en mac: ```export FLASK_APP=main.py```
 - en windows: ```set FLASK_APP=main.py```
 
-# Otra opción de ejecucion
+# Opción de ejecucion RECOMENDADA
 - instalar
   ```pip install python-dotenv```
 - crear un archivo .env y dentro agregar lo siguiente:
@@ -22,6 +27,8 @@ la libreria utilizada en flask https://flask.palletsprojects.com/en/2.2.x/
 ``` FLASK_DEBUG=True ```
 - y luego para lanzar seria en la terminal el comando:
 ``` flask run ```
+
+
 # Comando para ejecutar el servidor:
 ```flask --app main run```
 # Comando para ejecutar el servidor en otro puerto diferente por default es el 5000

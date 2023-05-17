@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Crypto</title>
+    
+    <link rel="stylesheet" href="static/css/pico.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                  <li><strong>My Crypto</strong></li> 
+                    <li><a href="/" role="button">Inicio</a></li>
+                    <li><a href="/purchase" role="button">Compra</a></li>
+                    <li><a href="/status" role="button">Estado</a> </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+        <section class="container">
+            {% block section %}
+            {% endblock %}
+        </section>
+
+        <footer>
+            <div class="container">
+                &copy; 2023- Pablo Márquez para KeepCoding
+                <h6>"Desaconsejamos el tradeo real con cryptomonedas"</h6>
+            </div>
+        </footer>
+</body>
+</html>

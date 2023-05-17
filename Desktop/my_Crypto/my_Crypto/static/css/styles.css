@@ -1,0 +1,19 @@
+header{
+    background-color: rgb(81, 81, 116);
+    color: blue;
+    font-size: 1.4em;
+    font-weight: lighter;
+}
+
+footer{
+    background-color: rgb(64, 45, 189);
+    color: rgb(77, 187, 214);
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+
+section{
+    background-color: rgb(70, 132, 56);
+    color: rgb(164, 128, 214);
+}
