@@ -1,7 +1,6 @@
 from flask import render_template
-def method_name():
-    pass
 from my_Crypto import app
+
 
 @app.route('/')
 def index():

@@ -8,28 +8,29 @@
     
     <link rel="stylesheet" href="static/css/pico.css">
     <link rel="stylesheet" href="static/css/styles.css">
-
+    
+    <html data-theme="light"></html>
 </head>
 <body>
     <header>
-        <div class="container">
-            <nav>
+        <div class="container-fluid">
+            <strong>My Crypto</strong>
+            <nav aria-label="breadcrumb">
                 <ul>
-                  <li><strong>My Crypto</strong></li> 
-                    <li><a href="/" role="button">Inicio</a></li>
-                    <li><a href="/purchase" role="button">Compra</a></li>
-                    <li><a href="/status" role="button">Estado</a> </li>
+                    <li><a href="/" >Inicio</a></li>
+                    <li><a href="/purchase" >Compra</a></li>
+                    <li><a href="/status" >Estado</a> </li>
                 </ul>
             </nav>
         </div>
     </header>
-        <section class="container">
+        <section class="container-fluid">
             {% block section %}
             {% endblock %}
         </section>
 
         <footer>
-            <div class="container">
+            <div class="container-fluid">
                 &copy; 2023- Pablo Márquez para KeepCoding
                 <h6>"Desaconsejamos el tradeo real con cryptomonedas"</h6>
             </div>

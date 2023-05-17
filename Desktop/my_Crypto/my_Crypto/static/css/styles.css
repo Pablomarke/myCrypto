@@ -1,6 +1,6 @@
 header{
     background-color: rgb(81, 81, 116);
-    color: blue;
+    color: rgb(221, 255, 0);
     font-size: 1.4em;
     font-weight: lighter;
 }
@@ -15,5 +15,18 @@ footer{
 
 section{
     background-color: rgb(70, 132, 56);
-    color: rgb(164, 128, 214);
+    color: rgb(164, 128, 214); 
 }
+
+table, th, td {
+    border: 6px solid rgb(242, 184, 130);
+    border-collapse: collapse;
+  }
+  tr:nth-child(even) {
+    background-color: rgba(150, 212, 212, 0.4);
+    border: 3px solid rgb(242, 184, 130);
+  }
+  th:nth-child(even),td:nth-child(even) {
+    background-color: rgba(150, 212, 212, 0.4);
+    border: 3px solid rgb(242, 184, 130);
+  }
