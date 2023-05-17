@@ -1,6 +1,48 @@
 {% extends 'base.html' %}
 
 {% block section %}
-Esto es la Compra
+<form>
+    <h1>Compra de cryptos</h1>
+    <div class="grid">
+      <!-- Markup example 1: input is inside label -->
+      <label for="from">
+        From
+        <select>
+            <option value="" disabled selected>Select</option>
+            <option>…</option>
+          </select>
+      </label>
+
+      <label for="from">
+        To
+        <select>
+         <option value="" disabled selected>Select</option>
+         <option>…</option>
+       </select>
+      </label>
+  
+     
+  
+    </div>
+    <div class="grid">
+        <label for="Q">
+            Q
+            <input type="number" id="quantity" name="quantity">
+            <button type="submit">calcular</button>
+          </label>
+ 
+     <label for="Q">
+       Q2
+       <input type="text" id="lastname" name="lastname" placeholder="Q" required>
+     </label>
+ 
+   </div>
+ 
+    
+    <!-- Button -->
+    <button type="submit">Guardar</button>
+  
+  </form>
+
 
 {% endblock %}
