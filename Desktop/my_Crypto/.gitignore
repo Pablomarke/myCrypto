@@ -1,3 +1,5 @@
 /.vscode/
 /entorno/
-
+/__pycache__/
+/key.py/
+/pruebas.py/

@@ -1,4 +1,4 @@
-# Aplicación Web para calcular tradeo de cryptomonedas
+# Aplicación Web para calcular tradeo e inversión de cryptomonedas
 
 Programa hecho en python con el framework flask y JS App Web. Desarrollado por Pablo Márquez para el bootcamp de keepCoding.
 
