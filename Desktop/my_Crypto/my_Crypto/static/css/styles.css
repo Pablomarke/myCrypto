@@ -1,4 +1,4 @@
-header{
+header,body{
     background-color: rgb(2, 2, 29);
     color: rgb(231, 188, 17);
     font-size: 1.4em;
@@ -12,11 +12,11 @@ footer{
     font-weight: bold;
 }
 
-
 section{
-    background-color: rgb(240, 220, 89);
-    color: rgb(164, 128, 214); 
+  background-color: rgb(240, 220, 89);
+  color: rgb(49, 49, 158); 
 }
+
 
 table, th, td {
     border: 6px solid rgb(242, 184, 130);

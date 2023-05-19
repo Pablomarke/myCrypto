@@ -1,38 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Crypto</title>
-    
-    <link rel="stylesheet" href="static/css/pico.css">
-    <link rel="stylesheet" href="static/css/styles.css">
-    
-    <html data-theme="light"></html>
-</head>
-<body>
-    <header>
-        <div class="container-fluid">
-            <strong>My Crypto</strong>
-            <nav aria-label="breadcrumb">
-                <ul>
-                    <li><a href="/" >Inicio</a></li>
-                    <li><a href="/purchase" >Compra</a></li>
-                    <li><a href="/status" >Estado</a> </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>{{title}}</title>
+        
+        <link rel="stylesheet" href="static/css/styles.css">
+        <link rel="stylesheet" href="static/css/pico.css">
+        
+        
+        <html data-theme="light"></html>
+    </head>
+    <body>
+        <header>
+            <div class="container-fluid">
+                <strong>My Crypto</strong>
+                <nav aria-label="breadcrumb">
+                    <ul>
+                        {% if title == "Inicio" %}
+                        <li><u class="secondary">Inicio </u> </li>
+                        {% else %}
+                        <li><a href="/" >Inicio</a></li>
+                        {% endif %}
+
+                        {% if title == "Compra" %}
+                        <li><u class="secondary">Compra </u> </li>
+                        {% else %}
+                        <li><a href="/purchase" >Compra</a></li>
+                        {% endif %}
+
+                        {% if page == "Estado" %}
+                        <li><u class="secondary">Estado </u> </li>
+                        {% else %}
+                        <li><a href="/status" >Estado</a> </li>
+                        {% endif %}
+                        
+                        
+                    </ul>
+                </nav>
+            </div>
+        </header>
         <section class="container-fluid">
             {% block section %}
             {% endblock %}
-        </section>
+        </section> 
         <footer>
             <div class="container-fluid">
                 &copy; 2023- Pablo Márquez &#174 para KeepCoding &#174
                 <h6>"Desaconsejamos el tradeo real con cryptomonedas"</h6>
             </div>
         </footer>
-</body>
+    </body>
 </html>
