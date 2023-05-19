@@ -1,20 +1,20 @@
 header{
-    background-color: rgb(81, 81, 116);
-    color: rgb(221, 255, 0);
+    background-color: rgb(2, 2, 29);
+    color: rgb(231, 188, 17);
     font-size: 1.4em;
     font-weight: lighter;
 }
 
 footer{
-    background-color: rgb(64, 45, 189);
-    color: rgb(77, 187, 214);
+    background-color: rgb(2, 2, 29);
+    color: rgb(227, 233, 235);
     font-size: 1.4em;
     font-weight: bold;
 }
 
 
 section{
-    background-color: rgb(70, 132, 56);
+    background-color: rgb(240, 220, 89);
     color: rgb(164, 128, 214); 
 }
 
@@ -23,10 +23,10 @@ table, th, td {
     border-collapse: collapse;
   }
   tr:nth-child(even) {
-    background-color: rgba(150, 212, 212, 0.4);
+    background-color: rgba(46, 49, 158, 0.515);
     border: 3px solid rgb(242, 184, 130);
   }
   th:nth-child(even),td:nth-child(even) {
-    background-color: rgba(150, 212, 212, 0.4);
+    background-color: rgba(46, 49, 158, 0.515);
     border: 3px solid rgb(242, 184, 130);
   }

@@ -3,3 +3,4 @@
 /__pycache__/
 /key.py/
 /pruebas.py/
+/data/movimientos.sqlite
