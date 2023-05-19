@@ -8,48 +8,25 @@
         <th scope="col">Fecha</th>
         <th scope="col">Hora</th>
         <th scope="col">From</th>
-        <th scope="col">Q</th>
-        <th scope="col">to</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">To</th>
         <th scope="col">Q</th>
         <th scope="col">P.U</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        
-      </tr>
-      <tr>
-        
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        
-      </tr> 
-      
-      <tr>
-        
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        
-      </tr>
-    </tbody>
+      {% for item in data %}
+          <tr>
+              <td>{{item.Fecha}}</td>
+              <td>{{item.Hora}}</td>
+              <td>{{item.Moneda_from}}</td>
+              <td>{{item.Cantidad_from}}</td>
+              <td>{{item.Moneda_to}}</td>
+              <td>{{item.Cantidad_to}}</td>
+              <td>por determinar</td> 
+          </tr>
+      {% endfor %}
+   </tbody> 
     <tfoot>
      
     </tfoot>

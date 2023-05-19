@@ -1,10 +1,13 @@
 from flask import render_template
 from my_Crypto import app
+from my_Crypto.modelos import select_all
 
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    tabla = select_all()
+
+    return render_template("index.html", data = tabla)
 
 @app.route("/purchase")
 def compra():
