@@ -15,8 +15,11 @@ def index():
 
 
 def compra():
-    return render_template("compra.html", title = "Compra", page = "Compra")
+
+    crypto_usadas = ("ETH", "BNB","ADA", "DOT", "BTC", "USDT", "XRP", "SOL", "MATIC")
+
+    return render_template("compra.html", title = "Compra", crypto_usadas = crypto_usadas)
 
 @app.route("/status")
 def estado():
-    return render_template("estado.html", title = "Estado", page = "Estado")
+    return render_template("estado.html", title = "Estado", )

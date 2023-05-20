@@ -2,6 +2,7 @@ import requests
 from key import APIKEY
 
 
+
 def valorCrypto(crypto):
     
     url = f'https://rest.coinapi.io/v1/exchangerate/{crypto}/EUR'

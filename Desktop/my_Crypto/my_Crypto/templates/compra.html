@@ -1,43 +1,50 @@
 {% extends 'base.html' %}
 {% block section %}
 <form>
-    <h1>Compra de cryptos</h1>
-    <div class="grid">
-      <!-- Markup example 1: input is inside label -->
-      <label for="from">
-        From
-        <select>
-            <option value="" disabled selected>Select</option>
-            <option>…</option>
-          </select>
-      </label>
+  <br>
+  <h1>Compra de cryptos</h1>
+  <div class="grid">
+    <!-- Markup example 1: input is inside label -->
+    <label for="from">
+      From
+      <select>
+        {% for item in crypto_usadas %}
+        <option value="{{item}}" selected disabled>{{item}}</option>
+      {% endfor%}
+          <option value="" selected disabled>Selecciona moneda/Crypto</option>
+          
+        </select>
+    </label>
 
-      <label for="from">
-        To
-        <select>
-         <option value="" disabled selected>Select</option>
-         <option>…</option>
-       </select>
-      </label>
+    <label for="to">
+      To
+      <select>
+        
+      {% for item in crypto_usadas %}
+        <option value="{{item}}" selected>{{item}}</option>
+      {% endfor%}
+        <option value="0" selected>Selecciona moneda/Crypto</option>
+      </select>
+    </label>
   
      
   
     </div>
     <div class="grid">
         <label for="Q">
-            Q
-            <input type="number" id="quantity" name="quantity">
-            <button type="submit">calcular</button>
-          </label>
- 
-     <label for="Q">
-       Q2
-       <input type="text" id="lastname" name="lastname" placeholder="Q" required>
-     </label>
- 
-   </div>
+          Q
+          <input type="number" id="quantity" name="quantity">
+          <button type="submit">calcular</button>
+        </label>
+        <label for="Q">
+          Q2
+          <input type="text" id="lastname" name="lastname" placeholder="Q" required>
+        </label>
+    </div>
 
     <!-- Button -->
     <button type="submit">Guardar</button>
+    <br>
+    <br>
 </form>
 {% endblock %}
