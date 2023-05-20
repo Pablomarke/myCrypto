@@ -25,3 +25,9 @@ def select_all():
 
     conectar.con.close()
     return lista_diccionario
+
+def create(registroForm):
+    conectarNuevo = Conexion("INSERT INTO movimientos(fecha, hora, Moneda_from, Cantidad_from, Moneda_to,Cantidad_to) VALUES(?,?,?,?,?,?)", registroForm)
+    conectarNuevo.con.commit()
+    conectarNuevo.con.close()
+    

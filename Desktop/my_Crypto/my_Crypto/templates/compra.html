@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 {% block section %}
-<form>
-  <br>
-  <h1>Compra de cryptos</h1>
+<br>
+<h1>Compra de cryptos</h1>
+
+<form action="/purchase" method="POST">
   <div class="grid">
-    <!-- Markup example 1: input is inside label -->
     <label for="from">
       From
+      {{dataForm.from_select}}
       <select>
         {% for item in crypto_usadas %}
-        <option value="{{item}}" selected disabled>{{item}}</option>
-      {% endfor%}
-          <option value="" selected disabled>Selecciona moneda/Crypto</option>
+        <option value="{{item}}" selected >{{item}}</option>
+        {% endfor%}
+          <option value="" selected >Selecciona moneda/Crypto</option>
           
         </select>
     </label>
@@ -31,20 +32,22 @@
   
     </div>
     <div class="grid">
+     
         <label for="Q">
           Q
-          <input type="number" id="quantity" name="quantity">
-          <button type="submit">calcular</button>
+          {{dataForm.quantity}}
         </label>
-        <label for="Q">
+
+        <label for="Q2">
           Q2
-          <input type="text" id="lastname" name="lastname" placeholder="Q" required>
+          <input type="text"  id="lastname" name="lastname" placeholder="Valor de cambio" readonly>
         </label>
     </div>
 
     <!-- Button -->
-    <button type="submit">Guardar</button>
+   {{dataForm.submit}}
     <br>
     <br>
 </form>
+
 {% endblock %}
