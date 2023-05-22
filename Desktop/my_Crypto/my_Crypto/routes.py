@@ -12,9 +12,11 @@ crypto_usadas = ["EUR", "ETH", "BNB","ADA", "DOT", "BTC", "USDT", "XRP", "SOL", 
 @app.route('/')
 def index():
     tabla = Conexion.select_all()
+    movs = len(tabla)
 
     return render_template("index.html", 
-                           data = tabla, 
+                           data = tabla,
+                           movs = movs, 
                            title = "Inicio")
 
 @app.route("/purchase", 
