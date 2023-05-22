@@ -36,6 +36,11 @@ def compra():
     else:
         
         if formulario.validate_on_submit():
+            if formulario.to_select.data == "EUR":
+                valor = valorCrypto(formulario.from_select.data)
+            else:
+                valor = valorCrypto(formulario.to_select.data)
+
             Conexion.create([
                 formulario.date_select,
                 formulario.hora_select,
@@ -43,10 +48,10 @@ def compra():
                 formulario.quantity.data,
                 formulario.to_select.data,
                 tradeoCrypto(formulario.quantity.data, 
-                             formulario.from_select.data, 
-                             formulario.to_select.data),
-                valorCrypto(formulario.to_select.data)
-            ])
+                            formulario.from_select.data, 
+                            formulario.to_select.data),
+                            valor
+                            ])
             
             
             flash("Movimiento registrado correactamente!!!")
