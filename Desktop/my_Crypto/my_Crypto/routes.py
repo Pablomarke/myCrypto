@@ -5,14 +5,13 @@ from my_Crypto.formulario import MovimientosForm
 from my_Crypto.modelos import tradeoCrypto, valorCrypto
 from key import APIKEY
 
-tabla = Conexion()
 
 
 crypto_usadas = ["EUR", "ETH", "BNB","ADA", "DOT", "BTC", "USDT", "XRP", "SOL", "MATIC"]
 
 @app.route('/')
 def index():
-    tabla.select_all()
+    tabla = Conexion.select_all()
 
     return render_template("index.html", 
                            data = tabla, 
@@ -35,7 +34,7 @@ def compra():
     else:
         
         if formulario.validate_on_submit():
-            tabla.create([
+            Conexion.create([
                 formulario.date_select,
                 formulario.hora_select,
                 formulario.from_select.data,
