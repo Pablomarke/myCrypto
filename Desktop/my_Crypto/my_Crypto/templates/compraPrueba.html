@@ -3,9 +3,6 @@
 <form action="/purchase" method="post">
     {{dataForm.csrf_token}}
 
-
-
-
 {{dataForm.from_select.label}}
 {{dataForm.from_select}}
 {{dataForm.quantity.label}}
@@ -13,12 +10,9 @@
 {{dataForm.to_select.label}}
 {{dataForm.to_select}}
 
-
-
 {{dataForm.submit}}
-<br>
-<br>
 
+<br>
+<br>
 </form>
-
 {% endblock %}

@@ -2,6 +2,15 @@
 {% block section %}
 <br>
 <h2>Tabla de movimientos</h2>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <ul class=flashes>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endwith %}
 <table role = "grid">
   <thead>
     <tr>
@@ -11,7 +20,7 @@
       <th scope="col">Cantidad</th>
       <th scope="col">To</th>
       <th scope="col">Q</th>
-      <th scope="col">P.U</th>
+      <th scope="col">Precio Unitario</th>
     </tr>
   </thead>
   <tbody>
@@ -23,7 +32,7 @@
             <td>{{item.Cantidad_from}}</td>
             <td>{{item.Moneda_to}}</td>
             <td>{{item.Cantidad_to}}</td>
-            <td>por determinar</td> 
+            <td>{{item.Valor}}€</td> 
         </tr>
     {% endfor %}
     </tbody> 

@@ -6,5 +6,6 @@ CREATE TABLE "movimientos" (
 	"Cantidad_from"	NUMERIC,
 	"Moneda_to"	TEXT,
 	"Cantidad_to"	NUMERIC,
+	"Valor"  NUMERIC
 	PRIMARY KEY("ID" AUTOINCREMENT)
 )
