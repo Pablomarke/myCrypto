@@ -1,19 +1,17 @@
 from flask import render_template,request,redirect, flash
 from my_Crypto import app
 from my_Crypto.conexion import Conexion
-from my_Crypto.formulario import MovimientosForm
 from my_Crypto.modelos import tradeoCrypto, valorCrypto
-from key import APIKEY
-
-
+from time import strftime
 
 crypto_usadas = ["EUR", "ETH", "BNB","ADA", "DOT", "BTC", "USDT", "XRP", "SOL", "MATIC"]
+date_select = strftime(" %d/%m/%Y")
+hora_select = strftime(" %H:%M:%S")
 
 @app.route('/')
 def index():
     tabla = Conexion.select_all()
     movs = len(tabla)
-
     return render_template("index.html", 
                            data = tabla,
                            movs = movs, 
@@ -21,46 +19,41 @@ def index():
 
 @app.route("/purchase", 
            methods = ["GET", "POST"])
-
-
-
 def compra():
-    formulario = MovimientosForm()
-    
-    if request.method == "GET":
-        return render_template("compraPrueba.html", 
-                               dataForm = formulario,  
-                               title = "Compra", 
-                               crypto_usadas = crypto_usadas)
+    valor = "Solo lectura"
 
+    if request.method == "GET":
+        return render_template("compra.html",   
+                               title = "Compra", 
+                               crypto_usadas = crypto_usadas,
+                               valor = "Valor de Cambio"
+                               )
     else:
-        
-        if formulario.validate_on_submit():
-            if formulario.to_select.data == "EUR":
-                valor = valorCrypto(formulario.from_select.data)
+        if request.form["Button"] == "Guardar":
+            if request.form["to_select"] == "EUR":
+                valor = valorCrypto(request.form["from_select"])  
             else:
-                valor = valorCrypto(formulario.to_select.data)
+                valor = valorCrypto(request.form["to_select"])
+
 
             Conexion.create([
-                formulario.date_select,
-                formulario.hora_select,
-                formulario.from_select.data,
-                formulario.quantity.data,
-                formulario.to_select.data,
-                tradeoCrypto(formulario.quantity.data, 
-                            formulario.from_select.data, 
-                            formulario.to_select.data),
+                date_select,
+                hora_select,
+                request.form["from_select"],
+                request.form["quantity"],
+                request.form["to_select"],
+                tradeoCrypto(request.form["quantity"], 
+                            request.form["from_select"], 
+                            request.form["to_select"]),
                             valor
-                            ])
-            
-            
+                            ])            
             flash("Movimiento registrado correactamente!!!")
             return redirect('/')  
+        
         else:
-            return render_template("compraPrueba.html",
-                                   dataForm=formulario)
-
-
+            return render_template("compra.html",
+                                   title = "Compra",
+                                   )
 
 @app.route("/status")
 def estado():

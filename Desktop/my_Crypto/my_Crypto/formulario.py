@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,FloatField,SubmitField
+from wtforms import StringField,FloatField,SubmitField,HiddenField
 from wtforms.validators import DataRequired
 from time import strftime
 
@@ -14,8 +14,6 @@ class MovimientosForm(FlaskForm):
                           validators=[DataRequired("")])
     to_select = StringField('To',
                             validators=[DataRequired( message="" )])
-    
-
     submit = SubmitField('Guardar en Base de datos')
 
 
