@@ -4,49 +4,47 @@
 <br>
 <h1>Compra de cryptos</h1>
 
+
 <form action="/purchase" method="POST">
 
-  <div class="grid">
-
     <label for="from">
-      From</label>
+      From
       <select name="from_select" value="{{request.from_select}}">
         {% for item in crypto_usadas %}
-        <option value="{{item}}">{{item}}</option>
+        <option value="{{item}}" >{{item}}</option>
         {% endfor%}
-        
+        <option value="{{pre_from}}" placeholder="{{pre_from}}" selected>{{pre_from}}</option>
+      </label>
       </select>
-    
-<br>
-
+  
     <label for="to">
-      To</label>
+      To
       <select name="to_select" value="{{request.to_select}}">
         {% for item in crypto_usadas %}
-        <option value="{{item}}" selected>{{item}}</option>
+        <option value="{{item}}" >{{item}}</option>
         {% endfor%}
+        <option value="{{pre_to}}" placeholder="{{pre_to}}" selected>{{pre_to}}</option>
+      </label>
       </select>
     
-  
-    </div>
-    <div class="grid">
+   
         <label for="Q2">
           Cantidad 
-        </label>
-          <input type="number"  id="cantidad" name="quantity" placeholder="Cantidad a Convertir" >
-            <br>
-       
+          <input value="{{q_to}}" type="number"  id="cantidad" name="quantity" placeholder="{{ q_to }} {{pre_from}}" >
+        </label>  
+      
         <label for="Q">
-          cambio
+          Cambio
+          <input value="{{valor}}" type="text"  id="precompra" name="quantity2" placeholder="{{valor}} {{pre_to}}" readonly>
         </label>
-          <input type="text"  id="precompra" name="quantity2" placeholder="{{valor}}" readonly>
-    </div>
-<br>
+        
+
     <!-- Button -->
   <input type="submit" name = "Button" value="Previsualizar">
     <br>
   <input type="submit" name = "Button" value="Guardar">
     <br>
-</form>
 
-{% endblock %}
+  </form>
+
+  {% endblock %}

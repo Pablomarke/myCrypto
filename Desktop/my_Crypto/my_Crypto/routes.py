@@ -21,19 +21,48 @@ def index():
            methods = ["GET", "POST"])
 def compra():
     valor = "Solo lectura"
-
     if request.method == "GET":
         return render_template("compra.html",   
                                title = "Compra", 
                                crypto_usadas = crypto_usadas,
-                               valor = "Valor de Cambio"
+                               valor = "Valor de Cambio",
+                               q_to = "cantidad",
+                                pre_from = "selecione",
+                                pre_to = "selecciona",
                                )
     else:
+        if request.form["Button"] == "Previsualizar":
+            
+            respuesta = { 
+                "pre_from" : request.form["from_select"], 
+                "pre_q" : request.form["quantity"],
+                "pre_to" : request.form["to_select"]
+            }
+            valor = tradeoCrypto(request.form["quantity"], 
+                        request.form["from_select"], 
+                        request.form["to_select"])
+                        
+            
+            return render_template('compra.html', 
+                                   title = "Compra", 
+                                   valor = valor,
+                                   q_to = request.form["quantity"],
+                                   pre_from = request.form["from_select"],
+                                   pre_to = request.form["to_select"]
+                                   )  
+        
         if request.form["Button"] == "Guardar":
+        
+            pre_from = request.form["from_select"] 
+            pre_q = request.form["quantity"]
+            pre_to = request.form["to_select"]
+            
+            print("aquiii ++++++ ", request.form)
+        
             if request.form["to_select"] == "EUR":
-                valor = valorCrypto(request.form["from_select"])  
+                valor = valorCrypto(pre_from)  
             else:
-                valor = valorCrypto(request.form["to_select"])
+                valor = valorCrypto(pre_to)
 
 
             Conexion.create([
@@ -47,7 +76,7 @@ def compra():
                             request.form["to_select"]),
                             valor
                             ])            
-            flash("Movimiento registrado correactamente!!!")
+            flash("Movimiento registrado correctamente!")
             return redirect('/')  
         
         else:
