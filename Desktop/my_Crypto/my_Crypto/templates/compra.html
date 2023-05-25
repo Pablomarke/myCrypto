@@ -2,24 +2,29 @@
 {% block section %}
 
 <br>
-<h1>Compra de cryptos</h1>
+<h1>Tradeo cryptos</h1>
 
 
 <form action="/purchase" method="POST">
 
     <label for="from">
-      From
-      <select name="from_select" value="{{request.from_select}}">
+      From 
+      <select name="from_select" value="{{request.from_select}}" placeholder="{{pre_from}}"required>
         {% for item in crypto_usadas %}
         <option value="{{item}}" >{{item}}</option>
         {% endfor%}
-        <option value="{{pre_from}}" placeholder="{{pre_from}}" selected>{{pre_from}}</option>
+        <option  placeholder="{{pre_from}}" selected>{{pre_from}}</option>
       </label>
       </select>
+
+      <label for="Q2">
+        Cantidad 
+        <input value="{{q_to}}" type="number"  id="cantidad" name="quantity" placeholder="{{ q_to }} " required>
+      </label>  
   
     <label for="to">
       To
-      <select name="to_select" value="{{request.to_select}}">
+      <select name="to_select" value="{{request.to_select}}" required>
         {% for item in crypto_usadas %}
         <option value="{{item}}" >{{item}}</option>
         {% endfor%}
@@ -27,24 +32,19 @@
       </label>
       </select>
     
-   
-        <label for="Q2">
-          Cantidad 
-          <input value="{{q_to}}" type="number"  id="cantidad" name="quantity" placeholder="{{ q_to }} {{pre_from}}" >
-        </label>  
-      
         <label for="Q">
           Cambio
-          <input value="{{valor}}" type="text"  id="precompra" name="quantity2" placeholder="{{valor}} {{pre_to}}" readonly>
+          <input value="{{valor}}" type="text"  id="precompra" name="quantity2" placeholder="{{valor}}" readonly>
         </label>
         
 
     <!-- Button -->
-  <input type="submit" name = "Button" value="Previsualizar">
+  <input type="submit" name = "Button" value="Previsualizar" class="secondary">
     <br>
   <input type="submit" name = "Button" value="Guardar">
     <br>
 
   </form>
+<br>
 
   {% endblock %}

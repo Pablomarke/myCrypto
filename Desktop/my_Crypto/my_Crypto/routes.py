@@ -25,10 +25,10 @@ def compra():
         return render_template("compra.html",   
                                title = "Compra", 
                                crypto_usadas = crypto_usadas,
-                               valor = "Valor de Cambio",
-                               q_to = "cantidad",
-                                pre_from = "selecione",
-                                pre_to = "selecciona",
+                               valor = "Aquí verás el valor de Cambio",
+                               q_to = "Introduzca cantidad",
+                                pre_from = "Seleccione Euro o Cryptomoneda",
+                                pre_to = "Seleccione Euro o Cryptomoneda",
                                )
     else:
         if request.form["Button"] == "Previsualizar":
@@ -52,13 +52,11 @@ def compra():
                                    )  
         
         if request.form["Button"] == "Guardar":
-        
+
             pre_from = request.form["from_select"] 
             pre_q = request.form["quantity"]
             pre_to = request.form["to_select"]
             
-            print("aquiii ++++++ ", request.form)
-        
             if request.form["to_select"] == "EUR":
                 valor = valorCrypto(pre_from)  
             else:
@@ -68,12 +66,12 @@ def compra():
             Conexion.create([
                 date_select,
                 hora_select,
-                request.form["from_select"],
-                request.form["quantity"],
-                request.form["to_select"],
-                tradeoCrypto(request.form["quantity"], 
-                            request.form["from_select"], 
-                            request.form["to_select"]),
+                pre_from,
+                pre_q,
+                pre_to,
+                tradeoCrypto(pre_q, 
+                            pre_from, 
+                            pre_to),
                             valor
                             ])            
             flash("Movimiento registrado correctamente!")
