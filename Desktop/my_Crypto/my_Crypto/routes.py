@@ -4,7 +4,7 @@ from my_Crypto.conexion import Conexion
 from my_Crypto.modelos import tradeoCrypto, valorCrypto
 from time import strftime
 
-crypto_usadas = ["EUR", "ETH", "BNB","ADA", "DOT", "BTC", "USDT", "XRP", "SOL", "MATIC"]
+crypto_posibles = ["EUR", "ETH", "BNB","ADA", "DOT", "BTC", "USDT", "XRP", "SOL", "MATIC"]
 date_select = strftime(" %d/%m/%Y")
 hora_select = strftime(" %H:%M:%S")
 
@@ -20,11 +20,14 @@ def index():
 @app.route("/purchase", 
            methods = ["GET", "POST"])
 def compra():
+    crypto_usadas = Conexion.cryptos_usadas()
+
     valor = "Solo lectura"
     if request.method == "GET":
         return render_template("compra.html",   
                                title = "Compra", 
                                crypto_usadas = crypto_usadas,
+                               crypto_posibles = crypto_posibles,
                                valor = "Aquí verás el valor de Cambio",
                                q_to = "Introduzca cantidad",
                                 pre_from = "Seleccione Euro o Cryptomoneda",
@@ -84,5 +87,16 @@ def compra():
 
 @app.route("/status")
 def estado():
+    euros = Conexion.euros_invertidos()
+    euros_rec = Conexion.euros_recuperados()
+    euros_rec = round(euros_rec, 2)
+    valor_compra = euros - euros_rec
+    valor_compra = round(valor_compra, 2)
+    valor_actual = 0
+    crypto_usadas = Conexion.cryptos_usadas()
     return render_template("estado.html", 
-                           title = "Estado", )
+                           title = "Estado",
+                            euros = euros,
+                            euros_rec = euros_rec,
+                            valor_compra = valor_compra,
+                            valor_actual = valor_actual )

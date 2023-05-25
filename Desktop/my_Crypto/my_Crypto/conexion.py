@@ -12,7 +12,7 @@ class Conexion:
 
     def select_all():
         
-        conectar = Conexion("SELECT * from movimientos order by fecha ASC")
+        conectar = Conexion("SELECT * from movimientos order by fecha DESC , Hora DESC")
         filas = conectar.res.fetchall()
         columnas = conectar.res.description 
                                                             
@@ -33,4 +33,44 @@ class Conexion:
         conectarNuevo = Conexion("INSERT INTO movimientos(fecha, hora, Moneda_from, Cantidad_from, Moneda_to,Cantidad_to, valor) VALUES(?,?,?,?,?,?,?)", registroForm)
         conectarNuevo.con.commit()
         conectarNuevo.con.close()
+
+    def euros_invertidos():
+        conectarInvertidos = Conexion(f"SELECT Moneda_from, Cantidad_from  from movimientos")
+        filas = conectarInvertidos.res.fetchall()
+        euros = 0
+        pun=0
+        for i in filas:
+            if filas[pun][0] == "EUR":
+                euros += filas[pun][1]
+            pun += 1
+        conectarInvertidos.con.close()   
+        return euros
     
+    def euros_recuperados():
+        conectarInvertidos = Conexion("SELECT Moneda_to, Cantidad_to  from movimientos")
+        rec = conectarInvertidos.res.fetchall()
+        euros_rec = 0
+        pun=0
+        for i in rec:
+            if rec[pun][0] == "EUR":
+                euros_rec += rec[pun][1]
+            pun += 1
+        conectarInvertidos.con.close()   
+        return euros_rec
+    
+    def cryptos_usadas():
+        conectarNuevo = Conexion("SELECT Moneda_to from movimientos")
+        buscaCryptos = conectarNuevo.res.fetchall()
+        conectarNuevo.con.close()
+        cryptos_Euros = set(["EUR"])
+
+        for i in buscaCryptos:
+            print(i)
+            i=str(i)
+            i = i[2:5]
+            cryptos_Euros.add(i)
+        conectarNuevo.con.close()
+        return cryptos_Euros
+
+    def valor_Actual():
+        pass

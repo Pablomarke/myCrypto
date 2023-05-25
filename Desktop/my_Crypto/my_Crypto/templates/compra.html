@@ -25,8 +25,8 @@
     <label for="to">
       To
       <select name="to_select" value="{{request.to_select}}" required>
-        {% for item in crypto_usadas %}
-        <option value="{{item}}" >{{item}}</option>
+        {% for item in crypto_posibles %}
+        <option value="{{item}}" required>{{item}}</option>
         {% endfor%}
         <option value="{{pre_to}}" placeholder="{{pre_to}}" selected>{{pre_to}}</option>
       </label>
