@@ -30,3 +30,9 @@ table, th, td {
     background-color: rgba(46, 49, 158, 0.515);
     border: 3px solid rgb(242, 184, 130);
   }
+
+  article{
+    background-color: rgba(46, 49, 158, 0.515);
+  
+    max-block-size: 10px;
+  }

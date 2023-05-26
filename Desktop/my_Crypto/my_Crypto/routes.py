@@ -92,11 +92,11 @@ def estado():
     euros_rec = round(euros_rec, 2)
     valor_compra = euros - euros_rec
     valor_compra = round(valor_compra, 2)
-    valor_actual = 0
-    crypto_usadas = Conexion.cryptos_usadas()
+    valor_actual = Conexion.valor_actual()
     return render_template("estado.html", 
                            title = "Estado",
                             euros = euros,
                             euros_rec = euros_rec,
                             valor_compra = valor_compra,
-                            valor_actual = valor_actual )
+                            valor_actual = valor_actual,
+                            )

@@ -1,5 +1,6 @@
 import sqlite3
 from my_Crypto import TABLE_DATA
+from my_Crypto.modelos import valorCrypto
 
 class Conexion:
     def __init__(self,
@@ -11,7 +12,6 @@ class Conexion:
                                     params)
 
     def select_all():
-        
         conectar = Conexion("SELECT * from movimientos order by fecha DESC , Hora DESC")
         filas = conectar.res.fetchall()
         columnas = conectar.res.description 
@@ -72,5 +72,28 @@ class Conexion:
         conectarNuevo.con.close()
         return cryptos_Euros
 
-    def valor_Actual():
-        pass
+    def valor_actual():
+        conectarInvertidos = Conexion(f"SELECT Moneda_to, Cantidad_to  from movimientos")
+        crypto_inver = conectarInvertidos.res.fetchall()
+        euros = 0
+        pun=0
+        for i in crypto_inver:
+            if crypto_inver[pun][0] != "EUR":
+                crypto = crypto_inver[pun][0]
+                print("Nombre:", crypto)
+                crypto_q = float(crypto_inver[pun][1])
+                print("cantidad ",crypto_q)
+                conver = valorCrypto(crypto)
+                sum = conver * crypto_q
+                euros += sum
+            else:
+                crypto = crypto_inver[pun][0]
+                print("Nombre:", crypto)
+                crypto_q = float(crypto_inver[pun][1])
+                print("cantidad ",crypto_q)
+                conver = valorCrypto(crypto)
+                sum = conver * crypto_q
+                euros -= sum
+            pun += 1
+        conectarInvertidos.con.close()   
+        return euros

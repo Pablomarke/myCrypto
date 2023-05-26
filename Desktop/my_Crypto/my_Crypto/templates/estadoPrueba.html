@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block section %}
+&nbsp
+<article>
+    <header>Cantidad de Euros invertida</header>
+    {{euros}} €
+  </article>
+  <br>
+  <article>
+    <header>Cantidad recuperado en ventas</header>
+    {{euros_rec}} €
+  </article>
+  <br>
+  <article>
+    <header>Valor actual total de compra</header>
+    {{valor_compra}} €
+  </article>
+  <br>
+  <article>
+    <header>Valor actual en Cryptomonedas</header>
+    {{valor_actual}} €
+  </article>
+<br>
+ <a href="/" role="button">Volver a Inicio</a>
+ <br>
+ <br>
+{% endblock %}
