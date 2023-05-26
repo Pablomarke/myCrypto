@@ -12,6 +12,7 @@ hora_select = strftime(" %H:%M:%S")
 def index():
     tabla = Conexion.select_all()
     movs = len(tabla)
+    Conexion.cantidad_crypto()
     return render_template("index.html", 
                            data = tabla,
                            movs = movs, 
@@ -21,13 +22,14 @@ def index():
            methods = ["GET", "POST"])
 def compra():
     crypto_usadas = Conexion.cryptos_usadas()
-
     valor = "Solo lectura"
+    cantidades = Conexion.cantidad_crypto()
     if request.method == "GET":
         return render_template("compra.html",   
                                title = "Compra", 
                                crypto_usadas = crypto_usadas,
                                crypto_posibles = crypto_posibles,
+                               cantidades = cantidades,
                                valor = "Aquí verás el valor de Cambio",
                                q_to = "Introduzca cantidad",
                                 pre_from = "Seleccione Euro o Cryptomoneda",
@@ -49,13 +51,13 @@ def compra():
             return render_template('compra.html', 
                                    title = "Compra", 
                                    valor = valor,
+                                   cantidades = cantidades,
                                    q_to = request.form["quantity"],
                                    pre_from = request.form["from_select"],
                                    pre_to = request.form["to_select"]
                                    )  
         
         if request.form["Button"] == "Guardar":
-
             pre_from = request.form["from_select"] 
             pre_q = request.form["quantity"]
             pre_to = request.form["to_select"]
@@ -65,20 +67,34 @@ def compra():
             else:
                 valor = valorCrypto(pre_to)
 
+            aquel = str(pre_from)
+            este = cantidades[aquel]
+            
+            if float(pre_q) > float(este):
+                flash("Necesitas comprar mas cryptomonedas, no tienes tantas...")
+                return render_template("compra.html",
+                                   title = "Compra", 
+                                   valor = valor,
+                                   cantidades = cantidades,
+                                   q_to = request.form["quantity"],
+                                   pre_from = request.form["from_select"],
+                                   pre_to = request.form["to_select"]
+                                   )
 
-            Conexion.create([
-                date_select,
-                hora_select,
-                pre_from,
-                pre_q,
-                pre_to,
-                tradeoCrypto(pre_q, 
-                            pre_from, 
-                            pre_to),
-                            valor
-                            ])            
-            flash("Movimiento registrado correctamente!")
-            return redirect('/')  
+            else:
+                Conexion.create([
+                    date_select,
+                    hora_select,
+                    pre_from,
+                    pre_q,
+                    pre_to,
+                    tradeoCrypto(pre_q, 
+                                pre_from, 
+                                pre_to),
+                                valor
+                                ])            
+                flash("Movimiento registrado correctamente!")
+                return redirect('/')  
         
         else:
             return render_template("compra.html",
