@@ -21,18 +21,11 @@ section{
 table, th, td {
     border: 6px solid rgb(242, 184, 130);
     border-collapse: collapse;
-  }
-  tr:nth-child(even) {
-    background-color: rgba(46, 49, 158, 0.515);
-    border: 3px solid rgb(242, 184, 130);
-  }
-  th:nth-child(even),td:nth-child(even) {
-    background-color: rgba(46, 49, 158, 0.515);
-    border: 3px solid rgb(242, 184, 130);
+    
   }
 
+  tr:hover {background-color: #000000;};
   article{
     background-color: rgba(46, 49, 158, 0.515);
-  
     max-block-size: 10px;
   }

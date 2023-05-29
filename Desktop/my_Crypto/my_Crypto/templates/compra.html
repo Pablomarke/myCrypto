@@ -2,19 +2,24 @@
 {% block section %}
 
 <br>
-<h1>Tradeo cryptos</h1>
+<h2>Tradeo cryptos</h2>
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-  <ul class=flashes>
+ <h3><ul class=flashes></h3>
   {% for message in messages %}
     <li>{{ message }}</li>
   {% endfor %}
+  <br>
+  <a href="/purchase" role="button">Comprar cryptomonedas</a>
+  <a href="/" role="button">Revisar transacciones </a>
   </ul>
+<br>
+<br>
 {% endif %}
+
 {% endwith %}
 
 <form action="/purchase" method="POST">
-
     <label for="from">
       From 
       <select name="from_select" value="{{request.from_select}}" placeholder="{{pre_from}}"required>
@@ -45,7 +50,6 @@
           <input value="{{valor}}" type="text"  id="precompra" name="quantity2" placeholder="{{valor}}" readonly>
         </label>
         
-
     <!-- Button -->
   <input type="submit" name = "Button" value="Previsualizar" class="secondary">
     <br>

@@ -32,22 +32,15 @@ def compra():
                                cantidades = cantidades,
                                valor = "Aquí verás el valor de Cambio",
                                q_to = "Introduzca cantidad",
-                                pre_from = "Seleccione Euro o Cryptomoneda",
-                                pre_to = "Seleccione Euro o Cryptomoneda",
+                               pre_from = "Seleccione Euro o Cryptomoneda",
+                               pre_to = "Seleccione Euro o Cryptomoneda",
                                )
     else:
         if request.form["Button"] == "Previsualizar":
-            
-            respuesta = { 
-                "pre_from" : request.form["from_select"], 
-                "pre_q" : request.form["quantity"],
-                "pre_to" : request.form["to_select"]
-            }
             valor = tradeoCrypto(request.form["quantity"], 
                         request.form["from_select"], 
                         request.form["to_select"])
                         
-            
             return render_template('compra.html', 
                                    title = "Compra", 
                                    valor = valor,
@@ -107,12 +100,24 @@ def estado():
     euros_rec = Conexion.euros_recuperados()
     euros_rec = round(euros_rec, 2)
     valor_compra = euros - euros_rec
+    ganancia = ""
+    if valor_compra >= 0:
+        ganancia = "verde"
+    else:
+        ganancia = "rojo"
+
     valor_compra = round(valor_compra, 2)
     valor_actual = Conexion.valor_actual()
+    if valor_actual >= 0:
+        ganancia2 = "verde"
+    else:
+        ganancia2 = "rojo"
     return render_template("estado.html", 
                            title = "Estado",
                             euros = euros,
                             euros_rec = euros_rec,
                             valor_compra = valor_compra,
+                            ganancia = ganancia,
                             valor_actual = valor_actual,
+                            ganancia2 = ganancia2
                             )

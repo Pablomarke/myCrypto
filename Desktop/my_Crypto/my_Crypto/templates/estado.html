@@ -2,6 +2,7 @@
 
 {% block section %}
 &nbsp
+<h2>Estado de las transacciones</h2>
 <table>
     <tbody>
       <tr>
@@ -16,12 +17,20 @@
       </tr>
       <tr>
         <th scope="row">Valor de compra</th>
-        <td>{{valor_compra}} €</td>
+        {% if ganancia == "verde" %}
+        <td style="background-color: rgb(90, 203, 29)" >{{valor_compra}} €</td>
+         {% else %}
+        <td style="background-color: rgb(214, 38, 38)">{{valor_compra}} €</td>
+        {% endif %}
         
       </tr>
       <tr>
         <th scope="row">Valor actual</th>
-        <td>{{valor_actual}} €</td>
+        {% if ganancia2 == "verde" %}
+        <td  style="background-color: rgb(90, 203, 29)">{{valor_actual}} verde €</td>
+        {% else %}
+        <td style="background-color: rgb(214, 38, 38)">{{valor_actual}} €</td>
+        {% endif %}
         
       </tr>
     </tbody>
