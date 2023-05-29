@@ -27,9 +27,18 @@
       <tr>
         <th scope="row">Valor actual</th>
         {% if ganancia2 == "verde" %}
-        <td  style="background-color: rgb(90, 203, 29)">{{valor_actual}} verde €</td>
+        <td  style="background-color: rgb(90, 203, 29)">{{valor_actual}} €</td>
         {% else %}
         <td style="background-color: rgb(214, 38, 38)">{{valor_actual}} €</td>
+        {% endif %}
+        
+      </tr>
+      <tr>
+        <th scope="row">Ganancia</th>
+        {% if ganancia3 == "verde" %}
+        <td  style="background-color: rgb(90, 203, 29)">{{ganancia_total}} €</td>
+        {% else %}
+        <td style="background-color: rgb(214, 38, 38)">{{ganancia_total}} €</td>
         {% endif %}
         
       </tr>
