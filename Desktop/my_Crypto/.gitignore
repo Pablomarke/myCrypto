@@ -1,6 +1,7 @@
 /.vscode/
 /entorno/
 /__pycache__/
+/my_Crypto/__pycache__/
 /key.py/
 /pruebas.py/
 /data/movimientos.sqlite

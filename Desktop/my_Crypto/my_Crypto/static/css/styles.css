@@ -19,12 +19,12 @@ section{
 
 
 table, th, td {
+  text-align: left;
     border: 6px solid rgb(242, 184, 130);
     border-collapse: collapse;
-    
   }
 
-  tr:hover {background-color: #000000;};
+  tr:hover {background-color: #ab7416;};
   article{
     background-color: rgba(46, 49, 158, 0.515);
     max-block-size: 10px;

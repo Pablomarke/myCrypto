@@ -159,7 +159,6 @@ def consultar():
         if request.form["Button"] == "calcular":
       
             valor_dolar = float(valor_euro) * 1.07
-            valor_dolar = round(valor_dolar, 2)
             return render_template("consulta.html", 
                             title = "Consulta",
                             pre_to = pre_to,
