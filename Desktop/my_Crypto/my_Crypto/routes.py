@@ -10,20 +10,21 @@ hora_select = strftime(" %H:%M:%S")
 
 def validadorFormulario(datosFormulario):
     errores = []
-    if len(datosFormulario["to_select"]) > 5:
-        errores.append("Debes introducir Crypto o Moneda")
-    if  datosFormulario["quantity"] == "" or float(datosFormulario["quantity"]) == 0.0:
+    if datosFormulario["to_select"] == "":
+        errores.append("Debes seleccionar Crypto o Moneda")
+
+    if  datosFormulario["quantity"] == "" or float(datosFormulario["quantity"]) == 0:
         errores.append("Debes introducir una cantidad")
-    if len(datosFormulario["from_select"]) > 5:
-        errores.append("Debes introducir Crypto o Moneda")
-    
-    prueba_cantidad = Conexion.cantidad_crypto()
-    try:
-        q_from = prueba_cantidad[datosFormulario["from_select"]]
-        if float(datosFormulario["quantity"]) > float(q_from):
-            errores.append("No tienes suficientes cryptomonedas")
-    except:
-        errores.append("Introduce tipo de cryptomoneda o moneda")
+
+    if datosFormulario["from_select"] == "":
+        errores.append("Debes seleccionar Crypto o Moneda")
+        prueba_cantidad = Conexion.cantidad_crypto()
+        try:
+            q_from = prueba_cantidad[datosFormulario["from_select"]]
+            if float(datosFormulario["quantity"]) > float(q_from):
+                errores.append("No tienes suficientes cryptomonedas")
+        except:
+            errores.append("Introduce tipo de cryptomoneda o moneda")
     
     return errores
 
@@ -68,8 +69,8 @@ def compra():
                                    pre_to = request.form["to_select"])
         if request.form["Button"] == "Previsualizar":
             valor = tradeoCrypto(request.form["quantity"], 
-                        request.form["from_select"], 
-                        request.form["to_select"])
+                                request.form["from_select"],  
+                                request.form["to_select"])
                         
             return render_template('compra.html', 
                                    title = "Compra", 
