@@ -1,7 +1,6 @@
 from flask import render_template,request,redirect, flash
 from my_Crypto import app
-from my_Crypto.conexion import Conexion
-from my_Crypto.modelos import tradeoCrypto, valorCrypto
+from my_Crypto.modelos import *
 from time import strftime
 
 crypto_posibles = ["EUR", "ETH", "BNB","ADA", "DOT", "BTC", "USDT", "XRP", "SOL", "MATIC"]
@@ -11,14 +10,14 @@ hora_select = strftime(" %H:%M:%S")
 def validadorFormulario(datosFormulario):
     errores = []
     if datosFormulario["to_select"] == "":
-        errores.append("Debes seleccionar Crypto o Moneda")
+        errores.append("Debes seleccionar Crypto o Moneda en to")
 
     if  datosFormulario["quantity"] == "" or float(datosFormulario["quantity"]) == 0:
         errores.append("Debes introducir una cantidad")
 
     if datosFormulario["from_select"] == "":
-        errores.append("Debes seleccionar Crypto o Moneda")
-        prueba_cantidad = Conexion.cantidad_crypto()
+        errores.append("Debes seleccionar Crypto o Moneda en from")
+        prueba_cantidad = cantidad_crypto()
         try:
             q_from = prueba_cantidad[datosFormulario["from_select"]]
             if float(datosFormulario["quantity"]) > float(q_from):
@@ -30,9 +29,9 @@ def validadorFormulario(datosFormulario):
 
 @app.route('/')
 def index():
-    tabla = Conexion.select_all()
+    tabla = select_all()
     movs = len(tabla)
-    Conexion.cantidad_crypto()
+    cantidad_crypto()
     return render_template("index.html", 
                            data = tabla,
                            movs = movs, 
@@ -41,9 +40,9 @@ def index():
 @app.route("/purchase", 
            methods = ["GET", "POST"])
 def compra():
-    crypto_usadas = Conexion.cryptos_usadas()
+    crypto_usadas = cryptos_usadas()
     valor = "Solo lectura"
-    cantidades = Conexion.cantidad_crypto()
+    cantidades = cantidad_crypto()
     if request.method == "GET":
         return render_template("compra.html",   
                                title = "Compra", 
@@ -91,7 +90,7 @@ def compra():
             else:
                 valor = valorCrypto(pre_to)
 
-            Conexion.create([
+            create([
                 date_select,
                 hora_select,
                 pre_from,
@@ -112,8 +111,8 @@ def compra():
 
 @app.route("/status")
 def estado():
-    euros = Conexion.euros_invertidos()
-    euros_rec = Conexion.euros_recuperados()
+    euros = euros_invertidos()
+    euros_rec = euros_recuperados()
     euros_rec = round(euros_rec, 2)
     valor_compra = euros - euros_rec
     ganancia = ""
@@ -123,13 +122,13 @@ def estado():
         ganancia = "rojo"
 
     valor_compra = round(valor_compra, 2)
-    valor_actual = Conexion.valor_actual()
-    if valor_actual >= 0:
+    valor_act = valor_actual()
+    if valor_act >= 0:
         ganancia2 = "verde"
     else:
         ganancia2 = "rojo"
    
-    ganancia_total = valor_actual - valor_compra
+    ganancia_total = valor_act - valor_compra
     if ganancia_total >= 0:
         ganancia3 = "verde"
     else:
@@ -140,7 +139,7 @@ def estado():
                             euros_rec = euros_rec,
                             valor_compra = valor_compra,
                             ganancia = ganancia,
-                            valor_actual = valor_actual,
+                            valor_act = valor_act,
                             ganancia2 = ganancia2,
                             ganancia3 = ganancia3,
                             ganancia_total = ganancia_total
