@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block section %}
+<br>
+<h2>Consulta simple Valor cryptomonedas</h2>
+<form action="/consult" method="post">
+<article data-theme="dark">
+    <label for="to">
+        Selecciona Cryptomoneda
+        
+        <select name="to_select" value="{{request.to_select}}" required>
+          {% for item in crypto_posibles %}
+          <option value="{{item}}" required>{{item}}</option>
+          {% endfor%}
+          <option value="{{pre_to}}" placeholder="{{pre_to}}" selected>{{pre_to}}</option>
+            </label>
+        </select>
+    </label>
+    <input type="text" value="{{valor_euro}} €" readonly>
+    <input type="text" value="{{valor_dolar}} $" readonly>
+   
+  </article>
+  
+  <button type="submit" name="Button" value="calcular">Mostrar valor</button>
+  <br>
+</form>
+{% endblock %}

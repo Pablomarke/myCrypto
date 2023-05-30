@@ -144,3 +144,26 @@ def estado():
                             ganancia3 = ganancia3,
                             ganancia_total = ganancia_total
                             )
+
+@app.route("/consult", 
+           methods = ["GET", "POST"])
+def consultar():
+    if request.method == "GET":
+        return render_template("consulta.html", 
+                           title = "Consulta",
+                           crypto_posibles = crypto_posibles
+                           )
+    else:
+        pre_to = request.form["to_select"]
+        valor_euro = valorCrypto(pre_to)
+        if request.form["Button"] == "calcular":
+      
+            valor_dolar = float(valor_euro) * 1.07
+            valor_dolar = round(valor_dolar, 2)
+            return render_template("consulta.html", 
+                            title = "Consulta",
+                            pre_to = pre_to,
+                            valor_euro = valor_euro,
+                            valor_dolar = valor_dolar,
+                            crypto_posibles = crypto_posibles,
+                            )
