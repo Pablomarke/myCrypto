@@ -1,11 +1,14 @@
 # Aplicación Web para calcular tradeo e inversión de cryptomonedas
 
-Programa hecho en python con el framework flask y JS App Web. Desarrollado por Pablo Márquez para el bootcamp de keepCoding.
+Programa creado en python con el framework flask. Desarrollado por Pablo Márquez para el bootcamp de keepCoding.
 
-# Aviso importante
+# Aviso importante !!
 
 Esta app es solo para visualizar datos y jugar con supuestas inversiones. En ningún caso se realizan compras, inversiones o tradeo real. Desaconsejamos invertir en cualquier tipo de cryptomoneda.
 
+# Necesidades previas 
+- Necesitas una clave gratuita previa apra sustituir en el archivo "key.py"
+- Obtenla aquí: https://www.coinapi.io/
 
 # Instalación
 - crear un entorno en python y ejecutar el comando
