@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block section %}
 
+<!-- Mostrar errores de formulario -->
 <br>
 <h2>Tradeo cryptos</h2>
 {% with messages = get_flashed_messages() %}
@@ -19,6 +20,7 @@
 
 {% endwith %}
 
+<!-- Formulario -->
 <form action="/purchase" method="POST">
     <label for="from">
       From 

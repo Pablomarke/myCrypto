@@ -1,6 +1,8 @@
 import sqlite3
 from my_Crypto import TABLE_DATA
 
+# Conexión a la base de datos 
+
 class Conexion:
     def __init__(self,
                  querySql,

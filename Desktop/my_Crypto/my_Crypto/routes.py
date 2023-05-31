@@ -3,6 +3,7 @@ from my_Crypto import app
 from my_Crypto.modelos import *
 from time import strftime
 
+#Listado de cryptomonedas permitidas por el programa
 crypto_posibles = ["EUR", "ETH", "BNB","ADA", "DOT", "BTC", "USDT", "XRP", "SOL", "MATIC"]
 date_select = strftime(" %d/%m/%Y")
 hora_select = strftime(" %H:%M:%S")
@@ -27,6 +28,7 @@ def validadorFormulario(datosFormulario):
     
     return errores
 
+# Páginas
 @app.route('/')
 def index():
     tabla = select_all()
@@ -43,71 +45,74 @@ def compra():
     crypto_usadas = cryptos_usadas()
     valor = "Solo lectura"
     cantidades = cantidad_crypto()
-    if request.method == "GET":
-        return render_template("compra.html",   
-                               title = "Compra", 
-                               crypto_usadas = crypto_usadas,
-                               crypto_posibles = crypto_posibles,
-                               cantidades = cantidades,
-                               valor = "Aquí verás el valor de Cambio",
-                               )
-    else:
-        errores = validadorFormulario(request.form)
-        if errores :
-            for e in errores:
-             flash(e)
-            return render_template('compra.html', 
-                                   errores = errores,
-                                   crypto_usadas = crypto_usadas,
-                                   crypto_posibles = crypto_posibles,
-                                   title = "Compra", 
-                                   valor = "Faltan datos",
-                                   cantidades = cantidades,
-                                   q_to = request.form["quantity"],
-                                   pre_from = request.form["from_select"],
-                                   pre_to = request.form["to_select"])
-        if request.form["Button"] == "Previsualizar":
-            valor = tradeoCrypto(request.form["quantity"], 
-                                request.form["from_select"],  
-                                request.form["to_select"])
-                        
-            return render_template('compra.html', 
-                                   title = "Compra", 
-                                   valor = valor,
-                                   cantidades = cantidades,
-                                   q_to = request.form["quantity"],
-                                   pre_from = request.form["from_select"],
-                                   pre_to = request.form["to_select"]
-                                   )  
-        
-        if request.form["Button"] == "Guardar":
-            pre_from = request.form["from_select"] 
-            pre_q = request.form["quantity"]
-            pre_to = request.form["to_select"]
-            
-            if request.form["to_select"] == "EUR":
-                valor = valorCrypto(pre_from)  
-            else:
-                valor = valorCrypto(pre_to)
-
-            create([
-                date_select,
-                hora_select,
-                pre_from,
-                pre_q,
-                pre_to,
-                tradeoCrypto(pre_q, 
-                            pre_from, 
-                            pre_to),
-                            valor
-                            ])            
-            flash("Movimiento registrado correctamente!")
-            return redirect('/')  
-        
+    try:
+        if request.method == "GET":
+            return render_template("compra.html",   
+                                title = "Compra", 
+                                crypto_usadas = crypto_usadas,
+                                crypto_posibles = crypto_posibles,
+                                cantidades = cantidades,
+                                valor = "Aquí verás el valor de Cambio",
+                                )
         else:
-            return render_template("compra.html",
-                                   title = "Compra",
-                                   )
+            errores2 = validadorFormulario(request.form)
+            if errores2 :
+                for e2 in errores2:
+                    flash(e2)
+                return render_template('compra.html', 
+                                    errores2 = errores2,
+                                    crypto_usadas = crypto_usadas,
+                                    crypto_posibles = crypto_posibles,
+                                    title = "Compra", 
+                                    valor = "Faltan datos",
+                                    cantidades = cantidades,
+                                    q_to = request.form["quantity"],
+                                    pre_from = request.form["from_select"],
+                                    pre_to = request.form["to_select"])
+            if request.form["Button"] == "Previsualizar":
+                valor = tradeoCrypto(request.form["quantity"], 
+                                    request.form["from_select"],  
+                                    request.form["to_select"])
+                            
+                return render_template('compra.html', 
+                                    title = "Compra", 
+                                    valor = valor,
+                                    cantidades = cantidades,
+                                    q_to = request.form["quantity"],
+                                    pre_from = request.form["from_select"],
+                                    pre_to = request.form["to_select"]
+                                    )  
+            
+            if request.form["Button"] == "Guardar":
+                pre_from = request.form["from_select"] 
+                pre_q = request.form["quantity"]
+                pre_to = request.form["to_select"]
+                
+                if request.form["to_select"] == "EUR":
+                    valor = valorCrypto(pre_from)  
+                else:
+                    valor = valorCrypto(pre_to)
+
+                create([
+                    date_select,
+                    hora_select,
+                    pre_from,
+                    pre_q,
+                    pre_to,
+                    tradeoCrypto(pre_q, 
+                                pre_from, 
+                                pre_to),
+                                valor
+                                ])            
+                flash("Movimiento registrado correctamente!")
+                return redirect('/')  
+            
+            else:
+                return render_template("compra.html",
+                                    title = "Compra",
+                                    )
+    except ModelError as error:
+        ver_errores.viewError(error)
 
 @app.route("/status")
 def estado():
@@ -134,7 +139,7 @@ def estado():
     else:
         ganancia3 = "rojo"
     return render_template("estado.html", 
-                           title = "Estado",
+                        title = "Estado",
                             euros = euros,
                             euros_rec = euros_rec,
                             valor_compra = valor_compra,

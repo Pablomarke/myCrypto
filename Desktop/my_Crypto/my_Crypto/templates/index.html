@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block section %}
 <br>
+<!-- Mostrar errores y Mensaje tabla vacía-->
 <h2>Tabla de movimientos</h2>
 {% with messages = get_flashed_messages() %}
 {% if messages %}
@@ -19,6 +20,7 @@
   <a href="/purchase" role="button">Empezar a comprar</a>
   <br>
 
+  <!-- Tabla -->
 {% else %}
   <table role = "grid" >
     <thead>
@@ -33,6 +35,8 @@
         <th scope="col">Precio Unitario</th>
       </tr>
     </thead>
+
+    <!-- Datos tabla -->
     <tbody>
     
       {% for item in data %}
