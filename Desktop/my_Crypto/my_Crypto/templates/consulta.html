@@ -4,6 +4,15 @@
 <!-- Consulta simple -->
 <br>
 <h2>Consulta simple Valor cryptomonedas</h2>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+ <h3><ul class=flashes></h3>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+<br>
+{% endif %}
+{% endwith %}
 <form action="/consult" method="post">
 <article data-theme="dark">
     <label for="to">

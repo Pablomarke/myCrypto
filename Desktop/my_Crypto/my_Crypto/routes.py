@@ -10,6 +10,7 @@ hora_select = strftime(" %H:%M:%S")
 
 def validadorFormulario(datosFormulario):
     errores = []
+    
     if datosFormulario["to_select"] == "":
         errores.append("Debes seleccionar Crypto o Moneda en to")
 
@@ -69,10 +70,16 @@ def compra():
                                 q_to = request.form["quantity"],
                                 pre_from = request.form["from_select"],
                                 pre_to = request.form["to_select"])
+       
         if request.form["Button"] == "Previsualizar":
-            valor = tradeoCrypto(request.form["quantity"], 
-                                request.form["from_select"],  
-                                request.form["to_select"])
+            try:
+                valor = tradeoCrypto(request.form["quantity"], 
+                                    request.form["from_select"],  
+                                    request.form["to_select"])
+            except:
+                flash("Lo sentimos, has gastado las 100 consultas de hoy.")
+                flash("Puedes seguir mirando tu base de datos.")
+                return redirect("/purchase")
                         
             return render_template('compra.html', 
                                 title = "Compra", 
@@ -88,10 +95,15 @@ def compra():
             pre_q = request.form["quantity"]
             pre_to = request.form["to_select"]
             
-            if request.form["to_select"] == "EUR":
-                valor = valorCrypto(pre_from)  
-            else:
-                valor = valorCrypto(pre_to)
+            try:
+                if request.form["to_select"] == "EUR":
+                    valor = valorCrypto(pre_from)  
+                else:
+                    valor = valorCrypto(pre_to)
+            except:
+                flash("Lo sentimos, has gastado las 100 consultas de hoy.")
+                flash("Puedes seguir mirando tu base de datos.")
+                return redirect("/purchase")
 
             create([
                 date_select,
@@ -125,11 +137,26 @@ def estado():
         ganancia = "rojo"
 
     valor_compra = round(valor_compra, 2)
-    valor_act = valor_actual()
-    if valor_act >= 0:
-        ganancia2 = "verde"
-    else:
-        ganancia2 = "rojo"
+    try:
+        valor_act = valor_actual()
+        if valor_act >= 0:
+            ganancia2 = "verde"
+        else:
+            ganancia2 = "rojo"
+    except:
+            flash("Lo sentimos, has gastado las 100 consultas de hoy.")
+            flash("Puedes seguir mirando tu base de datos.")
+            return render_template("estado.html", 
+                        title = "Estado",
+                            euros = euros,
+                            euros_rec = euros_rec,
+                            valor_compra = valor_compra,
+                            ganancia = 0,
+                            valor_act = "No calculable",
+                            ganancia2 = "NO",
+                            ganancia3 = "NO",
+                            ganancia_total = "No calculable"
+                            )
    
     ganancia_total = valor_act - valor_compra
     if ganancia_total >= 0:
@@ -158,9 +185,13 @@ def consultar():
                            )
     else:
         pre_to = request.form["to_select"]
-        valor_euro = valorCrypto(pre_to)
+        try:
+            valor_euro = valorCrypto(pre_to)
+        except:
+            flash("Lo sentimos, has gastado las 100 consultas de hoy.")
+            flash("Puedes seguir mirando tu base de datos.")
+            return redirect("/consult")
         if request.form["Button"] == "calcular":
-      
             valor_dolar = float(valor_euro) * 1.07
             return render_template("consulta.html", 
                             title = "Consulta",

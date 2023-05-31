@@ -1,6 +1,7 @@
 import requests
 from key import APIKEY
 from my_Crypto.conexion import Conexion
+from flask import flash 
 
 
 #Funciones para trabajar con la base de datos

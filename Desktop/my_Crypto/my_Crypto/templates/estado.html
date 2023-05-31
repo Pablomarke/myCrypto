@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 {% block section %}
+<br>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+ <h3><ul class=flashes></h3>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+<br>
+{% endif %}
+{% endwith %}
 
 <!-- Tabla para transacciones -->
 &nbsp
@@ -20,6 +30,8 @@
         <th scope="row">Valor de compra</th>
         {% if ganancia == "verde" %}
         <td style="background-color: rgb(90, 203, 29)" >{{valor_compra}} €</td>
+        {% elif ganancia == "NO" %}
+        <td style="background-color: rgb(254, 244, 151)" >{{valor_compra}} €</td>
          {% else %}
         <td style="background-color: rgb(214, 38, 38)">{{valor_compra}} €</td>
         {% endif %}
@@ -29,6 +41,8 @@
         <th scope="row">Valor actual</th>
         {% if ganancia2 == "verde" %}
         <td  style="background-color: rgb(90, 203, 29)">{{valor_act}} €</td>
+        {% elif ganancia2 == "NO" %}
+        <td style="background-color: rgb(254, 244, 151)" >{{valor_act}} €</td>
         {% else %}
         <td style="background-color: rgb(214, 38, 38)">{{valor_act}} €</td>
         {% endif %}
@@ -38,6 +52,8 @@
         <th scope="row">Ganancia</th>
         {% if ganancia3 == "verde" %}
         <td  style="background-color: rgb(90, 203, 29)">{{ganancia_total}} €</td>
+        {% elif ganancia3 == "NO" %}
+        <td style="background-color: rgb(254, 244, 151)" >{{ganancia_total}} €</td>
         {% else %}
         <td style="background-color: rgb(214, 38, 38)">{{ganancia_total}} €</td>
         {% endif %}
