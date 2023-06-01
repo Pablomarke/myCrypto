@@ -1,12 +1,14 @@
 from flask import render_template,request,redirect, flash
 from my_Crypto import app
-from my_Crypto.modelos import *
+from my_Crypto.modelos import Base_Datos, CryptoApi
 from time import strftime
 
 #Listado de cryptomonedas permitidas por el programa
 crypto_posibles = ["EUR", "ETH", "BNB","ADA", "DOT", "BTC", "USDT", "XRP", "SOL", "MATIC"]
 date_select = strftime(" %d/%m/%Y")
 hora_select = strftime(" %H:%M:%S")
+b_d = Base_Datos()
+cc = CryptoApi()
 
 def validadorFormulario(datosFormulario):
     errores = []
@@ -32,9 +34,9 @@ def validadorFormulario(datosFormulario):
 # Páginas
 @app.route('/')
 def index():
-    tabla = select_all()
+    tabla = b_d.select_all()
     movs = len(tabla)
-    cantidad_crypto()
+    b_d.cantidad_crypto()
     return render_template("index.html", 
                            data = tabla,
                            movs = movs, 
@@ -43,9 +45,9 @@ def index():
 @app.route("/purchase", 
            methods = ["GET", "POST"])
 def compra():
-    crypto_usadas = cryptos_usadas()
+    crypto_usadas = b_d.cryptos_usadas()
     valor = "Solo lectura"
-    cantidades = cantidad_crypto()
+    cantidades = b_d.cantidad_crypto()
 
     if request.method == "GET":
         return render_template("compra.html",   
@@ -73,7 +75,7 @@ def compra():
        
         if request.form["Button"] == "Previsualizar":
             try:
-                valor = tradeoCrypto(request.form["quantity"], 
+                valor = cc.tradeoCrypto(request.form["quantity"], 
                                     request.form["from_select"],  
                                     request.form["to_select"])
             except:
@@ -97,21 +99,21 @@ def compra():
             
             try:
                 if request.form["to_select"] == "EUR":
-                    valor = valorCrypto(pre_from)  
+                    valor = cc.valorCrypto(pre_from)  
                 else:
-                    valor = valorCrypto(pre_to)
+                    valor = cc.valorCrypto(pre_to)
             except:
                 flash("Lo sentimos, has gastado las 100 consultas de hoy.")
                 flash("Puedes seguir mirando tu base de datos.")
                 return redirect("/purchase")
 
-            create([
+            b_d.create([
                 date_select,
                 hora_select,
                 pre_from,
                 pre_q,
                 pre_to,
-                tradeoCrypto(pre_q, 
+                cc.tradeoCrypto(pre_q, 
                             pre_from, 
                             pre_to),
                             valor
@@ -126,8 +128,8 @@ def compra():
 
 @app.route("/status")
 def estado():
-    euros = euros_invertidos()
-    euros_rec = euros_recuperados()
+    euros = b_d.euros_invertidos()
+    euros_rec = b_d.euros_recuperados()
     euros_rec = round(euros_rec, 2)
     valor_compra = euros - euros_rec
     ganancia = ""
@@ -138,7 +140,7 @@ def estado():
 
     valor_compra = round(valor_compra, 2)
     try:
-        valor_act = valor_actual()
+        valor_act = b_d.valor_actual()
         if valor_act >= 0:
             ganancia2 = "verde"
         else:
@@ -186,7 +188,7 @@ def consultar():
     else:
         pre_to = request.form["to_select"]
         try:
-            valor_euro = valorCrypto(pre_to)
+            valor_euro = cc.valorCrypto(pre_to)
         except:
             flash("Lo sentimos, has gastado las 100 consultas de hoy.")
             flash("Puedes seguir mirando tu base de datos.")
