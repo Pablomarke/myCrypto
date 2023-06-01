@@ -41,9 +41,13 @@
       </label>
       </select>
     
-        <label for="Q">
+        <label for="cam">
           Cambio
-          <input value="{{valor}}" type="text"  id="precompra" name="quantity2" placeholder="{{valor}}" readonly>
+          <input value="{{valor}} {{pre_to}}" type="text"  id="precompra" name="cambio" readonly>
+        </label>
+        <label for="pu">
+          Precio Unitario
+          <input value="{{pu}} {{pre_from}}" type="text"  id="precompra" name="pu" readonly>
         </label>
         
     <!-- Button -->

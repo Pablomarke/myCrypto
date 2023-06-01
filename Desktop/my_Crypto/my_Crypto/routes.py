@@ -78,6 +78,7 @@ def compra():
                 valor = cc.tradeoCrypto(request.form["quantity"], 
                                     request.form["from_select"],  
                                     request.form["to_select"])
+                pu = cc.valorCrypto(request.form["to_select"])
             except:
                 flash("Lo sentimos, has gastado las 100 consultas de hoy.")
                 flash("Puedes seguir mirando tu base de datos.")
@@ -89,7 +90,8 @@ def compra():
                                 cantidades = cantidades,
                                 q_to = request.form["quantity"],
                                 pre_from = request.form["from_select"],
-                                pre_to = request.form["to_select"]
+                                pre_to = request.form["to_select"],
+                                pu = pu
                                 )  
         
         if request.form["Button"] == "Guardar":
