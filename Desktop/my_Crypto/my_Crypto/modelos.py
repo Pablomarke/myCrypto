@@ -2,7 +2,7 @@ import requests
 from key import APIKEY
 from my_Crypto.conexion import Conexion
 
-#Funciones para trabajar con la base de datos
+#Modelo para trabajar con la base de datos
 
 class Base_Datos:
     def __init__(self):
@@ -101,7 +101,10 @@ class Base_Datos:
                 dicc[i[0]] += i[1]
         return dicc
 
-#Funciones llamada API de criptomonedas
+#Modelo llamada a la API de criptomonedas y control de errores
+
+class ModelError(Exception):
+    pass
 
 class CryptoApi:
     def __init__(self):
@@ -113,8 +116,13 @@ class CryptoApi:
         response = requests.get(url, 
                                 headers=headers)
         r = response.json()
-        rate = r["rate"]
-        return rate
+        if response.status_code != 200:
+            print(f"status: {response.status_code}, error: {r['error']}")
+            raise Exception("Error en consulta codigo de error:{}".format(response.status_code))
+        else:
+            r = response.json()
+            rate = r["rate"]
+            return rate
 
     def comprarCrypto(self, eur, 
                     crypto):
@@ -131,7 +139,12 @@ class CryptoApi:
         response = requests.get(url, 
                                 headers=headers)
         r = response.json()
-        rate = r["rate"]
-        rate = float(rate)
-        cambio = q/rate  
-        return cambio
+        if response.status_code != 200:
+            print(f"status: {response.status_code}, error: {r['error']}")
+            raise Exception("Error en consulta codigo de error:{}".format(response.status_code))
+            
+        else:
+            rate = r["rate"]
+            rate = float(rate)
+            cambio = q/rate  
+            return cambio

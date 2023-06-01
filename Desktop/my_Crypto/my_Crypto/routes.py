@@ -21,7 +21,7 @@ def validadorFormulario(datosFormulario):
 
     if datosFormulario["from_select"] == "":
         errores.append("Debes seleccionar Crypto o Moneda en from")
-        prueba_cantidad = cantidad_crypto()
+        prueba_cantidad = b_d.cantidad_crypto()
         try:
             q_from = prueba_cantidad[datosFormulario["from_select"]]
             if float(datosFormulario["quantity"]) > float(q_from):
@@ -56,6 +56,8 @@ def compra():
                             crypto_posibles = crypto_posibles,
                             cantidades = cantidades,
                             valor = "Aquí verás el valor de Cambio",
+                            pre_from = "Aquí verás el valor unitario",
+                            q_to = "Introduce cantidad"
                             )
     else:
         errores2 = validadorFormulario(request.form)
@@ -79,7 +81,8 @@ def compra():
                                     request.form["from_select"],  
                                     request.form["to_select"])
                 pu = cc.valorCrypto(request.form["to_select"])
-            except:
+            except Exception as error:
+                print(error)
                 flash("Lo sentimos, has gastado las 100 consultas de hoy.")
                 flash("Puedes seguir mirando tu base de datos.")
                 return redirect("/purchase")
@@ -104,7 +107,8 @@ def compra():
                     valor = cc.valorCrypto(pre_from)  
                 else:
                     valor = cc.valorCrypto(pre_to)
-            except:
+            except Exception as error:
+                print(error)
                 flash("Lo sentimos, has gastado las 100 consultas de hoy.")
                 flash("Puedes seguir mirando tu base de datos.")
                 return redirect("/purchase")
@@ -189,12 +193,15 @@ def consultar():
                            )
     else:
         pre_to = request.form["to_select"]
+        
         try:
             valor_euro = cc.valorCrypto(pre_to)
-        except:
+        except Exception as error:
+            print(error)
             flash("Lo sentimos, has gastado las 100 consultas de hoy.")
             flash("Puedes seguir mirando tu base de datos.")
             return redirect("/consult")
+        
         if request.form["Button"] == "calcular":
             valor_dolar = float(valor_euro) * 1.07
             return render_template("consulta.html", 

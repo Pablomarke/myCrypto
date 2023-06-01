@@ -22,8 +22,11 @@
           {% for item in crypto_posibles %}
           <option value="{{item}}" required>{{item}}</option>
           {% endfor%}
-          <option value="{{pre_to}}" placeholder="{{pre_to}}" selected>{{pre_to}}</option>
-            </label>
+          {% if item %}
+          <option value="{{item}}" placeholder="{{item}}" >{{item}}</option>
+            {% endif %}
+          <option value="" placeholder="{{item}}" selected>Seleccione cryptomoneda</option>
+        </label>
         </select>
     </label>
     <input type="text" value="{{valor_euro}} €" readonly>

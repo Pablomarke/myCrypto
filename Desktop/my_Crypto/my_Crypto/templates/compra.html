@@ -22,7 +22,10 @@
         {% for item in crypto_usadas %}
         <option value="{{item}}" >{{item}}</option>
         {% endfor%}
-        <option  placeholder="{{pre_from}}" selected>{{pre_from}}</option>
+        {% if pre_from %}
+        <option  placeholder="{{pre_from}}" >{{pre_from}}</option>
+        {% endif %}
+        <option value="" selected>Seleccione Moneda o Cryptomoneda</option>
       </label>
       </select>
 
@@ -37,7 +40,10 @@
         {% for item in crypto_posibles %}
         <option value="{{item}}" required>{{item}}</option>
         {% endfor%}
-        <option value="{{pre_to}}" placeholder="{{pre_to}}" selected>{{pre_to}}</option>
+        {% if pre_to %}
+        <option value="{{pre_to}}" placeholder="{{pre_to}}">{{pre_to}}</option>
+        {% endif %}
+        <option value="" placeholder="{{pre_to}}" selected>Seleccione Moneda o Cryptomoneda</option>
       </label>
       </select>
     
