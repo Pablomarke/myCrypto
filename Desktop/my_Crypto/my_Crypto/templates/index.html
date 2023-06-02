@@ -1,22 +1,10 @@
 {% extends 'base.html' %}
 {% block section %}
 <br>
-<!-- Mostrar errores y Mensaje tabla vacía-->
-<h2>Tabla de movimientos</h2>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-  <ul class=flashes>
-  {% for message in messages %}
-    <li>{{ message }}</li>
-  {% endfor %}
-  </ul>
-{% endif %}
-{% endwith %}
+<!-- Mensaje tabla vacía-->
 
 {% if movs == 0 %}
-  
   <h2>Esta tabla está vacía, dirigite a Compra para empezar </h2>
-  
   <a href="/purchase" role="button">Empezar a comprar</a>
   <br>
 

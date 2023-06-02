@@ -39,7 +39,8 @@ def index():
     b_d.cantidad_crypto()
     return render_template("index.html", 
                            data = tabla,
-                           movs = movs, 
+                           movs = movs,
+                           titulo = "Tabla de movientos", 
                            title = "Inicio")
 
 @app.route("/purchase", 
@@ -54,11 +55,12 @@ def compra():
                             crypto_usadas = crypto_usadas,
                             crypto_posibles = crypto_posibles,
                             cantidades = cantidades,
-                            pre_from = "Selecciona",
-                            pre_to = "Selecciona",
+                            pre_from = "Selecciona Euro/Cryptomoneda",
+                            pre_to = "Selecciona Euro/Cryptomoneda",
                             valor = "Aquí verás el valor de Cambio",
                             pu = "Aquí verás el valor unitario",
-                            q_to = "Introduce cantidad"
+                            q_to = "Introduce cantidad",
+                            titulo = "Compra y venta de cryptomonedas"
                             )
     else:
         errores2 = validadorFormulario(request.form)
@@ -74,7 +76,8 @@ def compra():
                                 cantidades = cantidades,
                                 q_to = request.form["quantity"],
                                 pre_from = request.form["from_select"],
-                                pre_to = request.form["to_select"])
+                                pre_to = request.form["to_select"],
+                                titulo = "Error en la transacción ")
        
         if request.form["Button"] == "Previsualizar":
             try:
@@ -89,7 +92,8 @@ def compra():
                                 q_to = request.form["quantity"],
                                 pre_from = request.form["from_select"],
                                 pre_to = request.form["to_select"],
-                                pu = pu
+                                pu = pu,
+                                titulo = "Previsualización de la compra/venta"
                                 )  
             except Exception as error:
                 print(error)
@@ -163,7 +167,8 @@ def estado():
                             valor_act = "No calculable",
                             ganancia2 = "NO",
                             ganancia3 = "NO",
-                            ganancia_total = "No calculable"
+                            ganancia_total = "No calculable",
+                            titulo = "Estado de las transacciones"
                             )
    
     ganancia_total = valor_act - valor_compra
@@ -180,7 +185,8 @@ def estado():
                             valor_act = valor_act,
                             ganancia2 = ganancia2,
                             ganancia3 = ganancia3,
-                            ganancia_total = ganancia_total
+                            ganancia_total = ganancia_total,
+                            titulo = "Estado de las transacciones"
                             )
 
 @app.route("/consult", 
@@ -190,7 +196,8 @@ def consultar():
         return render_template("consulta.html", 
                            title = "Consulta",
                            crypto_posibles = crypto_posibles,
-                           comienzo = "on"
+                           comienzo = "on",
+                           titulo = "Consulta valor actual cryptomonedas"
                            )
     else:
         pre_to = request.form["to_select"]
@@ -212,4 +219,5 @@ def consultar():
                             valor_euro = valor_euro,
                             valor_dolar = valor_dolar,
                             crypto_posibles = crypto_posibles,
+                            titulo = f"Valor actual de {pre_to}"
                             )

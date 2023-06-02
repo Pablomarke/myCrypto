@@ -1,20 +1,8 @@
 {% extends 'base.html' %}
 {% block section %}
 
-<!-- Mostrar errores de formulario -->
-<br>
-<h2>Tradeo cryptos</h2>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
- <h3><ul class=flashes></h3>
-  {% for message in messages %}
-    <li>{{ message }}</li>
-  {% endfor %}
-<br>
-{% endif %}
-{% endwith %}
-
 <!-- Formulario -->
+
 <form action="/purchase" method="POST">
    <!-- From -->
   <label for="from"> From </label>
@@ -46,10 +34,10 @@
     
     <!-- Labels de visualización -->
         <label for="cam"> Cambio </label>
-        <input value="{{valor}} {{pre_to}}" type="text"  id="precompra" name="cambio" readonly>
+        <input value="{{valor}} " type="text"  id="precompra" name="cambio" readonly>
         
         <label for="pu"> Precio Unitario </label>
-        <input value="{{pu}} {{pre_from}}" type="text"  id="precompra" name="pu" readonly>
+        <input value="{{pu}} " type="text"  id="precompra" name="pu" readonly>
        
         
     <!-- Botones -->

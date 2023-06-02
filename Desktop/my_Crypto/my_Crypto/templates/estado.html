@@ -1,19 +1,6 @@
 {% extends 'base.html' %}
 {% block section %}
-<br>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
- <h3><ul class=flashes></h3>
-  {% for message in messages %}
-    <li>{{ message }}</li>
-  {% endfor %}
-<br>
-{% endif %}
-{% endwith %}
-
 <!-- Tabla para transacciones -->
-&nbsp
-<h2>Estado de las transacciones</h2>
 <table>
     <tbody>
       <tr>
