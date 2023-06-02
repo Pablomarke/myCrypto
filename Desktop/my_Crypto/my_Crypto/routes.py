@@ -46,7 +46,6 @@ def index():
            methods = ["GET", "POST"])
 def compra():
     crypto_usadas = b_d.cryptos_usadas()
-    valor = "Solo lectura"
     cantidades = b_d.cantidad_crypto()
 
     if request.method == "GET":
@@ -55,8 +54,10 @@ def compra():
                             crypto_usadas = crypto_usadas,
                             crypto_posibles = crypto_posibles,
                             cantidades = cantidades,
+                            pre_from = "Selecciona",
+                            pre_to = "Selecciona",
                             valor = "Aquí verás el valor de Cambio",
-                            pre_from = "Aquí verás el valor unitario",
+                            pu = "Aquí verás el valor unitario",
                             q_to = "Introduce cantidad"
                             )
     else:
@@ -81,13 +82,7 @@ def compra():
                                     request.form["from_select"],  
                                     request.form["to_select"])
                 pu = cc.valorCrypto(request.form["to_select"])
-            except Exception as error:
-                print(error)
-                flash("Lo sentimos, has gastado las 100 consultas de hoy.")
-                flash("Puedes seguir mirando tu base de datos.")
-                return redirect("/purchase")
-                        
-            return render_template('compra.html', 
+                return render_template('compra.html', 
                                 title = "Compra", 
                                 valor = valor,
                                 cantidades = cantidades,
@@ -96,7 +91,12 @@ def compra():
                                 pre_to = request.form["to_select"],
                                 pu = pu
                                 )  
-        
+            except Exception as error:
+                print(error)
+                flash("Lo sentimos, has gastado las 100 consultas de hoy.")
+                flash("Puedes seguir mirando tu base de datos.")
+                return redirect("/purchase")
+                        
         if request.form["Button"] == "Guardar":
             pre_from = request.form["from_select"] 
             pre_q = request.form["quantity"]
@@ -189,13 +189,15 @@ def consultar():
     if request.method == "GET":
         return render_template("consulta.html", 
                            title = "Consulta",
-                           crypto_posibles = crypto_posibles
+                           crypto_posibles = crypto_posibles,
+                           comienzo = "on"
                            )
     else:
         pre_to = request.form["to_select"]
         
         try:
             valor_euro = cc.valorCrypto(pre_to)
+        
         except Exception as error:
             print(error)
             flash("Lo sentimos, has gastado las 100 consultas de hoy.")

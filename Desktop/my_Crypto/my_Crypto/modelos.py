@@ -2,14 +2,19 @@ import requests
 from key import APIKEY
 from my_Crypto.conexion import Conexion
 
+# Errores
+class ModelError(Exception):
+    pass
+
 #Modelo para trabajar con la base de datos
 
 class Base_Datos:
     def __init__(self):
         pass
 
+# Selecciona todos los movimientos
     def select_all(self):
-        conectar = Conexion("SELECT * from movimientos order by fecha DESC , Hora DESC")
+        conectar = Conexion("SELECT * from movimientos order by ID DESC")
         filas = conectar.res.fetchall()
         columnas = conectar.res.description 
                                                             
@@ -26,11 +31,13 @@ class Base_Datos:
         conectar.con.close()
         return lista_diccionario
 
+# Crea un nuevo registro
     def create(self, registroForm):
         conectarNuevo = Conexion("INSERT INTO movimientos(fecha, hora, Moneda_from, Cantidad_from, Moneda_to,Cantidad_to, valor) VALUES(?,?,?,?,?,?,?)", registroForm)
         conectarNuevo.con.commit()
         conectarNuevo.con.close()
 
+# Selecciona el total de euros que hemos invertido/gastado
     def euros_invertidos(self):
         conectarInvertidos = Conexion("SELECT Moneda_from, Cantidad_from  from movimientos")
         filas = conectarInvertidos.res.fetchall()
@@ -43,6 +50,7 @@ class Base_Datos:
         conectarInvertidos.con.close()   
         return euros
 
+# Selecciona los euros que hemos recuperado
     def euros_recuperados(self):
         conectarInvertidos = Conexion("SELECT Moneda_to, Cantidad_to  from movimientos")
         rec = conectarInvertidos.res.fetchall()
@@ -55,6 +63,7 @@ class Base_Datos:
         conectarInvertidos.con.close()   
         return euros_rec
 
+#Selecciona las cryptos que hemos comprado
     def cryptos_usadas(self):
         conectarNuevo = Conexion("SELECT Moneda_to from movimientos")
         buscaCryptos = conectarNuevo.res.fetchall()
@@ -67,6 +76,7 @@ class Base_Datos:
         conectarNuevo.con.close()
         return cryptos_Euros
 
+# Calcula el valor actual de las cryptomonedas compradas
     def valor_actual(self):
         conectarInvertidos = Conexion("SELECT Moneda_to, Cantidad_to  from movimientos")
         crypto_inver = conectarInvertidos.res.fetchall()
@@ -90,6 +100,7 @@ class Base_Datos:
         conectarInvertidos.con.close()   
         return euros
 
+# Selecciona cantidad de una moneda en concreto
     def cantidad_crypto(self):
         conectarCantidad = Conexion("SELECT Moneda_to, Cantidad_to  from movimientos")
         cryptos = conectarCantidad.res.fetchall()
@@ -103,13 +114,13 @@ class Base_Datos:
 
 #Modelo llamada a la API de criptomonedas y control de errores
 
-class ModelError(Exception):
-    pass
+
 
 class CryptoApi:
     def __init__(self):
         pass
 
+# Calcular valor respecto al euro
     def valorCrypto(self, crypto):
         url = f'https://rest.coinapi.io/v1/exchangerate/{crypto}/EUR'
         headers = {'X-CoinAPI-Key' : APIKEY}
@@ -124,12 +135,14 @@ class CryptoApi:
             rate = r["rate"]
             return rate
 
+# Calcular la el valor en cryptos de la compra en euros
     def comprarCrypto(self, eur, 
                     crypto):
         rate = self.valorCrypto(crypto)
         total = eur / rate
         return total
 
+# calcular el valor de la crytpo o moneda respecto a otra
     def tradeoCrypto(self, q, 
                     crypto,
                     crypto2):

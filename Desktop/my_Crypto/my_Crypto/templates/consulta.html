@@ -3,7 +3,7 @@
 
 <!-- Consulta simple -->
 <br>
-<h2>Consulta simple Valor cryptomonedas</h2>
+<h2>Consulta valor de mercado de cryptomonedas</h2>
 {% with messages = get_flashed_messages() %}
 {% if messages %}
  <h3><ul class=flashes></h3>
@@ -14,27 +14,30 @@
 {% endif %}
 {% endwith %}
 <form action="/consult" method="post">
-<article data-theme="dark">
-    <label for="to">
-        Selecciona Cryptomoneda
-        
-        <select name="to_select" value="{{request.to_select}}" required>
-          {% for item in crypto_posibles %}
-          <option value="{{item}}" required>{{item}}</option>
-          {% endfor%}
-          {% if item %}
-          <option value="{{item}}" placeholder="{{item}}" >{{item}}</option>
+  <article data-theme="dark">
+    <label for="to">  Selecciona Cryptomoneda </label>
+    
+          <select name="to_select" value="{{request.to_select}}" required>
+            {% for item in crypto_posibles %}
+              <option vaue="{{item}}" required>{{item}}</option>
+            {% endfor%}
+
+            {% if item %}
+              <option value="{{item}}" >{{item}}</option>
             {% endif %}
-          <option value="" placeholder="{{item}}" selected>Seleccione cryptomoneda</option>
-        </label>
-        </select>
-    </label>
+            {% if comienzo == "on" %}
+              <option value=""  selected>Seleccione cryptomoneda</option>
+            {% elif value != "" %}
+              <option value="{{pre_to}}" selected>{{pre_to}}</option>
+            {% endif %}
+          </select>
+
+    <!-- muestra de resultados-->        
     <input type="text" value="{{valor_euro}} €" readonly>
     <input type="text" value="{{valor_dolar}} $" readonly>
-   
+    <br>
   </article>
-  
-  <button type="submit" name="Button" value="calcular">Mostrar valor</button>
+    <button type="submit" name="Button" value="calcular" >Mostrar valor actual de mercado</button>
   <br>
 </form>
-{% endblock %}
+  {% endblock %}
