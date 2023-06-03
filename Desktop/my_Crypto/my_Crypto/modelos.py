@@ -31,6 +31,19 @@ class Base_Datos:
         conectar.con.close()
         return lista_diccionario
 
+#Selecciona las cryptos que hemos comprado
+    def cryptos_usadas(self):
+        conectarNuevo = Conexion("SELECT Moneda_to from movimientos")
+        buscaCryptos = conectarNuevo.res.fetchall()
+        conectarNuevo.con.close()
+        cryptos_Euros = set(["EUR"])
+        for i in buscaCryptos:
+            i=str(i)
+            i = i[2:5]
+            cryptos_Euros.add(i)
+        conectarNuevo.con.close()
+        return cryptos_Euros
+
 # Crea un nuevo registro
     def create(self, registroForm):
         conectarNuevo = Conexion("INSERT INTO movimientos(fecha, hora, Moneda_from, Cantidad_from, Moneda_to,Cantidad_to, valor) VALUES(?,?,?,?,?,?,?)", registroForm)
@@ -63,44 +76,25 @@ class Base_Datos:
         conectarInvertidos.con.close()   
         return euros_rec
 
-#Selecciona las cryptos que hemos comprado
-    def cryptos_usadas(self):
-        conectarNuevo = Conexion("SELECT Moneda_to from movimientos")
-        buscaCryptos = conectarNuevo.res.fetchall()
-        conectarNuevo.con.close()
-        cryptos_Euros = set(["EUR"])
-        for i in buscaCryptos:
-            i=str(i)
-            i = i[2:5]
-            cryptos_Euros.add(i)
-        conectarNuevo.con.close()
-        return cryptos_Euros
-
 # Calcula el valor actual de las cryptomonedas compradas
     def valor_actual(self):
-        conectarInvertidos = Conexion("SELECT Moneda_to, Cantidad_to  from movimientos")
-        crypto_inver = conectarInvertidos.res.fetchall()
-        euros = 0
-        pun=0
-        for i in crypto_inver:
-            crypto_coin= CryptoApi()
-            if crypto_inver[pun][0] != "EUR":
-                crypto = crypto_inver[pun][0]
-                crypto_q = float(crypto_inver[pun][1])
-                conver = crypto_coin.valorCrypto(crypto)
-                sum = conver * crypto_q
-                euros += sum
+        bd = Base_Datos()
+        cc = CryptoApi()
+        qcrypto = bd.cantidad_crypto()
+        print(qcrypto)
+        total_euros = 0
+        total_res = 0
+        for i in qcrypto:
+            if i != "EUR":
+                value = cc.valorCrypto(i)
+                q = qcrypto[i]
+                total = value * q
+                total_euros += total
             else:
-                crypto = crypto_inver[pun][0]
-                crypto_q = float(crypto_inver[pun][1])
-                conver = crypto_coin.valorCrypto(crypto)
-                sum = conver * crypto_q
-                euros -= sum
-            pun += 1
-        conectarInvertidos.con.close()   
-        return euros
+                total_res += qcrypto[i]
+        return total_euros
 
-# Selecciona cantidad de una moneda en concreto
+# Selecciona diccionario de cantidades de cryptos
     def cantidad_crypto(self):
         conectarCantidad = Conexion("SELECT Moneda_to, Cantidad_to  from movimientos")
         cryptos = conectarCantidad.res.fetchall()
@@ -109,12 +103,17 @@ class Base_Datos:
             if i[0] not in dicc:
                 dicc[i[0]] = i[1]
             else:
-                dicc[i[0]] += i[1]
+                dicc[i[0]] += i[1]     
+        conectarVendidas = Conexion("SELECT Moneda_from, Cantidad_from FROM movimientos")
+        cryptos_vendidas = conectarVendidas.res.fetchall()
+        for i in cryptos_vendidas:
+            if i[0] not in dicc:
+                dicc[i[0]] = i[1]
+            else:
+                dicc[i[0]] -= i[1]
         return dicc
 
 #Modelo llamada a la API de criptomonedas y control de errores
-
-
 
 class CryptoApi:
     def __init__(self):

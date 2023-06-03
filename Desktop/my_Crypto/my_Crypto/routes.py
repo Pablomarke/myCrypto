@@ -3,7 +3,7 @@ from my_Crypto import app
 from my_Crypto.modelos import Base_Datos, CryptoApi
 from time import strftime
 
-#Listado de cryptomonedas permitidas por el programa
+# Listado de cryptomonedas permitidas por el programa
 crypto_posibles = ["EUR", "ETH", "BNB","ADA", "DOT", "BTC", "USDT", "XRP", "SOL", "MATIC"]
 date_select = strftime(" %d/%m/%Y")
 hora_select = strftime(" %H:%M:%S")
@@ -13,14 +13,16 @@ cc = CryptoApi()
 def validadorFormulario(datosFormulario):
     errores = []
     
-    if datosFormulario["to_select"] == "":
+    if datosFormulario["to_select"] == "" or datosFormulario["to_select"] == "Selecciona Euro/Cryptomoneda":
         errores.append("Debes seleccionar Crypto o Moneda en to")
 
     if  datosFormulario["quantity"] == "" or float(datosFormulario["quantity"]) == 0:
         errores.append("Debes introducir una cantidad")
 
-    if datosFormulario["from_select"] == "":
+    if datosFormulario["from_select"] == "" or datosFormulario["from_select"] == "Selecciona Euro/Cryptomoneda":
         errores.append("Debes seleccionar Crypto o Moneda en from")
+    
+    if datosFormulario["from_select"] != "EUR":
         prueba_cantidad = b_d.cantidad_crypto()
         try:
             q_from = prueba_cantidad[datosFormulario["from_select"]]
@@ -28,8 +30,8 @@ def validadorFormulario(datosFormulario):
                 errores.append("No tienes suficientes cryptomonedas")
         except:
             errores.append("Introduce tipo de cryptomoneda o moneda")
-    
-    return errores
+        
+        return errores
 
 # Páginas
 @app.route('/')
@@ -133,7 +135,7 @@ def compra():
         
         else:
             return render_template("compra.html",
-                                title = "Compra",
+                                title = "Compra"
                                 )
 
 @app.route("/status")

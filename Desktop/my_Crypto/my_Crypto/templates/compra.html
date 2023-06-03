@@ -4,7 +4,7 @@
 <!-- Formulario -->
 
 <form action="/purchase" method="POST">
-   <!-- From -->
+  <!-- From -->
   <label for="from"> From </label>
       <select name="from_select" value="{{request.from_select}}" placeholder="{{pre_from}}"required>
         {% for item in crypto_usadas %}
@@ -16,36 +16,34 @@
         <option value="{{pre_from}}" selected>{{pre_from}}</option>
       </select>
 
-    <!-- cantidad-->
-      <label for="Q2"> Cantidad </label> 
-      <input value="{{q_to}}" type="number" step="0.000000000000000001" id="cantidad" name="quantity" placeholder="{{ q_to }} " required>
+  <!-- cantidad-->
+  <label for="Q2"> Cantidad </label> 
+  <input value="{{q_to}}" type="number" step="0.000000000000000001" id="cantidad" name="quantity" placeholder="{{ q_to }} " required>
 
   <!-- To -->
-    <label for="to">To</label>
-      <select name="to_select" value="{{request.to_select}}" required>
-        {% for item in crypto_posibles %}
-        <option value="{{item}}" >{{item}}</option>
-        {% endfor%}
-        {% if pre_to.value == "" %}
-        <option >{{pre_to}}</option>
-        {% endif %}
-        <option value="{{pre_to}}"  selected>{{pre_to}} </option>
-      </select>
+  <label for="to">To</label>
+    <select name="to_select" value="{{request.to_select}}" required>
+      {% for item in crypto_posibles %}
+      <option value="{{item}}" >{{item}}</option>
+      {% endfor%}
+      {% if pre_to.value == "" %}
+      <option >{{pre_to}}</option>
+      {% endif %}
+      <option value="{{pre_to}}"  selected>{{pre_to}} </option>
+    </select>
     
-    <!-- Labels de visualización -->
-        <label for="cam"> Cambio </label>
-        <input value="{{valor}} " type="text"  id="precompra" name="cambio" readonly>
-        
-        <label for="pu"> Precio Unitario </label>
-        <input value="{{pu}} " type="text"  id="precompra" name="pu" readonly>
-       
+  <!-- Labels de visualización -->
+  <label for="cam"> Cambio </label>
+  <input value="{{valor}} " type="text"  id="precompra" name="cambio" readonly>
+  
+  <label for="pu"> Precio Unitario </label>
+  <input value="{{pu}} " type="text"  id="precompra" name="pu" readonly>
         
     <!-- Botones -->
-    <input type="submit" name = "Button" value="Previsualizar" class="secondary">
-    <br>
-    <input type="submit" name = "Button" value="Guardar">
-    <br>
-
+      <input type="submit" name = "Button" value="Previsualizar" class="secondary">
+      <br>
+      <input type="submit" name = "Button" value="Guardar">
+      <br>
   </form>
 <br>
 

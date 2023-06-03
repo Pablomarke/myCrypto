@@ -7,13 +7,12 @@
   <h2>Esta tabla está vacía, dirigite a Compra para empezar </h2>
   <a href="/purchase" role="button">Empezar a comprar</a>
   <br>
-
-  <!-- Tabla -->
 {% else %}
+
+  <!-- Encabezado tabla -->
   <table role = "grid" >
     <thead>
       <tr>
-
         <th scope="col">Fecha</th>
         <th scope="col">Hora</th>
         <th scope="col">Moneda/Crypto Origen</th>
@@ -26,7 +25,6 @@
 
     <!-- Datos tabla -->
     <tbody>
-    
       {% for item in data %}
           <tr>
               <td>{{item.Fecha}}</td>
@@ -38,10 +36,8 @@
               <td>{{item.Valor}}€</td> 
           </tr>
       {% endfor %}
-    
     </tbody> 
 </table>
 {% endif %}
 <br>
-
 {% endblock %}

@@ -7,7 +7,10 @@ Programa creado en python con el framework flask. Desarrollado por Pablo Márque
 Esta app es solo para visualizar datos y jugar con supuestas inversiones. En ningún caso se realizan compras, inversiones o tradeo real. Desaconsejamos invertir en cualquier tipo de cryptomoneda.
 
 # Necesidades previas 
-- Necesitas una clave gratuita previa apra sustituir en el archivo "key.py"
+- Necesitas una clave gratuita previa para sustituir en el archivo "key.py"  
+```
+APIKEY = "Aquí introduce su apikey"
+```
 - Obtenla aquí: https://www.coinapi.io/
 
 # Instalación
@@ -16,11 +19,6 @@ Esta app es solo para visualizar datos y jugar con supuestas inversiones. En nin
 pip install -r requirements.txt
 ```
 la libreria utilizada en flask https://flask.palletsprojects.com/en/2.2.x/
-
-# Ejecucion del programa
-- inicializar el servidor de flask
-- en mac: ```export FLASK_APP=main.py```
-- en windows: ```set FLASK_APP=main.py```
 
 # Opción de ejecucion RECOMENDADA
 - instalar
@@ -31,6 +29,10 @@ la libreria utilizada en flask https://flask.palletsprojects.com/en/2.2.x/
 - y luego para lanzar seria en la terminal el comando:
 ``` flask run ```
 
+# Ejecucion del programa
+- inicializar el servidor de flask
+- en mac: ```export FLASK_APP=main.py```
+- en windows: ```set FLASK_APP=main.py```
 
 # Comando para ejecutar el servidor:
 ```flask --app main run```

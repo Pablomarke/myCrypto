@@ -2,27 +2,26 @@
 {% block section %}
 
 <!-- Consulta simple -->
-
 <form action="/consult" method="post">
   <article data-theme="dark">
     <label for="to">  Selecciona Cryptomoneda </label>
 
-          <select name="to_select" value="{{request.to_select}}" required>
-            {% for item in crypto_posibles %}
-              <option vaue="{{item}}" required>{{item}}</option>
-            {% endfor%}
+      <select name="to_select" value="{{request.to_select}}" required>
+        {% for item in crypto_posibles %}
+          <option vaue="{{item}}" required>{{item}}</option>
+        {% endfor%}
 
-            {% if item %}
-              <option value="{{item}}" >{{item}}</option>
-            {% endif %}
-            {% if comienzo == "on" %}
-              <option value=""  selected>Seleccione cryptomoneda</option>
-            {% elif value != "" %}
-              <option value="{{pre_to}}" selected>{{pre_to}}</option>
-            {% endif %}
-          </select>
+        {% if item %}
+          <option value="{{item}}" >{{item}}</option>
+        {% endif %}
+        {% if comienzo == "on" %}
+          <option value=""  selected>Seleccione cryptomoneda</option>
+        {% elif value != "" %}
+          <option value="{{pre_to}}" selected>{{pre_to}}</option>
+        {% endif %}
+      </select>
 
-    <!-- muestra de resultados-->        
+    <!-- Muestra de resultados-->        
     <input type="text" value="{{valor_euro}} €" readonly>
     <input type="text" value="{{valor_dolar}} $" readonly>
     <br>
